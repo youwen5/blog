@@ -1,6 +1,6 @@
 ---
-author: "My name"
-authorTwitter: "@MyName"
+author: "Youwen Wu"
+authorTwitter: "@youwen"
 desc: "I announce myself to the world"
 image: "./images/waiheke-stony-batter.jpg"
 keywords: "hello, announcement"

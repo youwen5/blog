@@ -1,28 +1,31 @@
 ---
-desc: "This is me saying hello to the world"
+desc: "a blog about computers, math, hacks, games, and life"
 image: "./images/robert-pearce-UwHN0jU_YqQ-unsplash-800w.jpg"
 lang: "en"
 stylesheet: "default"
 title: "Hello, world!"
 ---
 
-<header>
-  <h1>Hello, world!</h1>
-  <img
-    alt="A woman sitting on a bench amongst trees at the end of a boardwalk leading to a pond with mountains in the background"
-    src="./images/robert-pearce-UwHN0jU_YqQ-unsplash-800w.jpg"
-    height="300"
-  />
-</header>
 <main>
   <section>
-    <h2>Blog Posts</h2>
-    <ul>
+    <h2 class="text-3xl">Latest</h2>
+    <hr class="sm:mr-2 max-w-sm border-0 h-0.5 bg-gray-500 rounded-md mt-2" />
+    <ul class="mt-6 space-y-4 md:space-y-8">
       $for(posts)$
-        <li>
-          <div><a href=".$url$">$title$</a></div>
-          <small>$date$</small>
-        </li>
+      <li class="group">
+        <div class="rounded-md p-2">
+          <a
+            href=".$url$"
+            class="w-fit group-hover:text-gray-400 transition-colors"
+          >
+            <h3 class="text-2xl">$title$</h3>
+            <p class="text-sm">$date$</p>
+          </a>
+        </div>
+        <hr
+          class="max-w-[200px] border-0 h-1 bg-gray-800 rounded-lg px-2 group-hover:max-w-[250px] group-hover:bg-violet-950 transition-all duration-400"
+        />
+      </li>
       $endfor$
     </ul>
   </section>

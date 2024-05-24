@@ -1,53 +1,92 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="$lang$">
   <head>
     <title>$title$</title>
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="$desc$">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="$desc$" />
     $if(author)$
-    <meta name="author" content="$author$">
-    $endif$
-    $if(keywords)$
-    <meta name="keywords" content="$keywords$">
+    <meta name="author" content="$author$" />
+    $endif$ $if(keywords)$
+    <meta name="keywords" content="$keywords$" />
     $endif$
 
-    <meta property="og:site_name" content="$siteName$">
-    <meta property="og:title" content="$title$">
-    <meta property="og:url" content="$root$$url$">
-    <meta property="og:description" content="$desc$">
+    <meta property="og:site_name" content="$siteName$" />
+    <meta property="og:title" content="$title$" />
+    <meta property="og:url" content="$root$$url$" />
+    <meta property="og:description" content="$desc$" />
     $if(image)$
-    <meta property="og:image" content="$root$$image$">
-    $endif$
-    $if(type)$
-    <meta property="og:type" content="$type$">
+    <meta property="og:image" content="$root$$image$" />
+    $endif$ $if(type)$
+    <meta property="og:type" content="$type$" />
     $else$
-    <meta property="og:type" content="website">
+    <meta property="og:type" content="website" />
+    $endif$ $if(image)$
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:image" content="$root$$image$" />
     $endif$
-
-    $if(image)$
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:image" content="$root$$image$">
-    $endif$
-    <meta property="twitter:site" content="$siteName$">
-    <meta property="twitter:title" content="$title$">
-    <meta property="twitter:description" content="$desc$">
+    <meta property="twitter:site" content="$siteName$" />
+    <meta property="twitter:title" content="$title$" />
+    <meta property="twitter:description" content="$desc$" />
     $if(authorTwitter)$
-    <meta property="twitter:creator" content="$authorTwitter$">
+    <meta property="twitter:creator" content="$authorTwitter$" />
     $endif$
 
-    <link rel="shortcut icon" href="/favicon.ico">
-    <link rel="canonical" href="$root$$url$">
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="canonical" href="$root$$url$" />
 
-    <link rel="alternate" href="./atom.xml" title="$feedTitle$" type="application/atom+xml">
-    <link rel="alternate" href="./rss.xml" title="$feedTitle$" type="application/rss+xml">
+    <link
+      rel="alternate"
+      href="./atom.xml"
+      title="$feedTitle$"
+      type="application/atom+xml"
+    />
+    <link
+      rel="alternate"
+      href="./rss.xml"
+      title="$feedTitle$"
+      type="application/rss+xml"
+    />
 
-    <link rel="stylesheet" href="./css/default.css" />
+    <link rel="stylesheet" href="./build/css/bundle.css" />
     <link rel="stylesheet" href="./css/code.css" />
   </head>
-  <body>
+  <body class="container max-w-3xl mx-auto px-4">
+    <header class="mt-14 md:mt-24 mb-14">
+      <h1 class="text-4xl md:text-5xl font-serif font-medium">
+        <a href="/" class="hover:text-gray-500 transition-colors"
+          >Gradient Ascent</a
+        >
+      </h1>
+      <p class="mt-8 mb-3 px-1 italic">
+        a blog about computers, math, hacks, games, and life.
+      </p>
+      <a class="text-sm external-link" href="https://youwen.dev"
+        >by Youwen Wu</a
+      >
+    </header>
     $body$
+    <footer class="mt-14 md:mt-24 pb-12">
+      <hr class="border-0 bg-gray-400 rounded-xl h-0.5 mb-4" />
+      <p class="text-sm">
+        &copy; 2024 Youwen Wu. Powered by
+        <a
+          href="https://jaspervdj.be/hakyll/"
+          class="external-link"
+          target="__blank"
+          >Hakyll.</a
+        >
+        Content freely available under
+        <a
+          class="external-link"
+          target="__blank"
+          href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en"
+          ><span class="smallcaps">CC BY-NC-SA</span> 4.0</a
+        >
+        unless otherwise noted.
+      </p>
+    </footer>
     <script defer src="./js/script.js"></script>
   </body>
 </html>

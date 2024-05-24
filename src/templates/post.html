@@ -1,15 +1,14 @@
 <main>
   <article>
     <header>
-      <h1>
+      <h1 class="text-4xl">
         <a href=".$url$">$title$</a>
       </h1>
-      <div>
-        $date$ $if(updated)$(updated: $updated$)$endif$
+      <div class="mt-2">$date$</div>
+      <div class="mt-1 text-sm">
+        $if(updated)$(last updated: $updated$)$endif$
       </div>
     </header>
-    <section>
-      $body$
-    </section>
+    <section class="post mt-4">$body$</section>
   </article>
 </main>

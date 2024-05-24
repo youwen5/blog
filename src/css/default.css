@@ -1,54 +1,47 @@
-:root {
-  font-size: 62.5%;
-  box-sizing: border-box;
-  -ms-text-size-adjust: 100%;
-  -webkit-text-size-adjust: 100%;
+@import url("https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-gray-950 text-gray-100 font-serif;
+  }
 }
-*,
-*:before,
-*:after {
-  box-sizing: inherit;
+
+@layer utilities {
+  .external-link {
+    @apply text-violet-600 pl-1 pr-4 rounded-sm hover:bg-violet-950 transition-colors duration-300 relative;
+  }
+  .external-link::after {
+    @apply absolute top-1 right-2 w-2 h-2 border-2 border-violet-600 rounded-full translate-x-1/2 -translate-y-1/2;
+    content: "";
+  }
+  .small-caps {
+    font-variant: all-small-caps;
+  }
 }
-html,
-body {
-  min-height: 100vh;
-}
-body {
-  font-kerning: normal;
-  -moz-font-feature-settings: "kern", "liga", "clig", "calt";
-  -ms-font-feature-settings: "kern", "liga", "clig", "calt";
-  -webkit-font-feature-settings: "kern", "liga", "clig", "calt";
-  font-feature-settings: "kern", "liga", "clig", "calt";
-  scroll-behavior: smooth;
-  font-size: 2rem;
-}
-body,
-input,
-button {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-h1,
-h2 {
-  font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
-}
-h1 {
-  font-size: 4.0rem;
-}
-h2 {
-  font-size: 2.6rem;
-}
-small,
-p {
-  font-family: Tahoma, Arial, sans-serif;
-}
-small {
-  font-size: 1.6rem;
-  font-style: italic;
-}
-p {
-  font-size: 1.8rem;
-}
-pre.sourceCode {
-  padding: 2rem 1.5rem;
+
+.post {
+  h1 {
+    @apply text-2xl font-bold;
+  }
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply text-xl font-bold mt-4;
+  }
+  p {
+    @apply text-lg leading-loose my-2;
+  }
+  img {
+    @apply mx-auto my-4 rounded-lg;
+  }
+  div.sourceCode {
+    @apply p-4 rounded-lg;
+  }
 }
