@@ -19,6 +19,7 @@
   outputs = { self, nixpkgs, flake-utils, haskellNix }:
     flake-utils.lib.eachDefaultSystem (system:
       let
+        hls = pkgs.haskell-language-server;
         overlays = [ haskellNix.overlay
           (final: prev: {
             hakyllProject = final.haskell-nix.project' {
@@ -27,6 +28,7 @@
               modules = [{ doHaddock = false; }];
               shell.buildInputs = [
                 hakyll-site
+                hls
               ];
               shell.tools = {
                 cabal = "latest";
