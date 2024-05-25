@@ -4,7 +4,11 @@
       <h1 class="text-4xl">
         <a href=".$url$">$title$</a>
       </h1>
-      <p class="mb-1 mt-2 italic text-lg">$desc$</p>
+      <p
+        class="mb-1 mt-2 italic text-lg text-accent-light dark:text-accent-dark"
+      >
+        $desc$
+      </p>
       <div class="mt-2">$date$</div>
       <div class="mt-1 text-sm">
         $if(updated)$(last updated: $updated$)$endif$
