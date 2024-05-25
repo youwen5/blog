@@ -29,18 +29,20 @@
   h1 {
     @apply text-2xl font-bold;
   }
-  h2,
+  h2 {
+    @apply text-2xl font-medium mt-8;
+  }
   h3,
   h4,
   h5,
   h6 {
-    @apply text-xl font-bold mt-4;
+    @apply text-xl font-medium mt-8 text-accent-light dark:text-accent-dark;
   }
   p {
     @apply leading-loose my-2;
   }
   img {
-    @apply mx-auto my-4 rounded-lg;
+    @apply mx-auto my-6 rounded-lg;
   }
   div.sourceCode {
     @apply p-4 rounded-lg;
@@ -50,5 +52,40 @@
   }
   math[display="block"] {
     @apply overflow-x-auto my-1 text-xl;
+  }
+  ul {
+    @apply list-disc ml-2;
+  }
+  ol {
+    counter-reset: item;
+  }
+
+  ol li {
+    display: block;
+  }
+
+  ol li:before {
+    content: counters(item, ".") ". ";
+    counter-increment: item;
+  }
+
+  ol ol {
+    li {
+      @apply ml-2;
+    }
+    counter-reset: subitem;
+  }
+
+  ol ol li:before {
+    @apply ml-4;
+    content: counter(item, upper-alpha) ". ";
+    counter-increment: subitem;
+  }
+
+  ol ol ol li:before {
+    content: counter(subitem, lower-roman) ". ";
+  }
+  li {
+    @apply my-1;
   }
 }
