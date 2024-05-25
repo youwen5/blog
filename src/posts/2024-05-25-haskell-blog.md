@@ -15,7 +15,7 @@ of the features.
 <img
   alt="gradient ascent"
   src="./images/gradient-ascent.jpg"
-  style="height: 200px; width: 80%; object-fit: cover"
+  style="height: 200px; width: 100%; object-fit: cover"
 />
 
 I'll be writing about computers, code, math, video games, and whatever else
