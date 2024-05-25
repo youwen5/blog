@@ -21,6 +21,8 @@ of the features.
 I'll be writing about computers, code, math, video games, and whatever else
 here.
 
+> A monad is just a monoid in the category of endofunctors, what's the problem?
+
 ## haskell?
 
 This entire blog is generated with [hakyll](https://jaspervdj.be/hakyll/). It's

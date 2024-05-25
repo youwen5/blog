@@ -99,4 +99,10 @@
   hr {
     @apply border-0 h-2 bg-muted-light dark:bg-muted-dark my-10 max-w-12 mx-auto rounded-xl;
   }
+  blockquote {
+    @apply border-l-4 border-accent-light dark:border-accent-dark text-accent-light dark:text-accent-dark italic my-4 px-4 py-0.5 h-fit;
+  }
+  blockquote > p {
+    @apply m-0;
+  }
 }
