@@ -8,7 +8,7 @@ import qualified Data.Text.Slugger as Slugger
 import Hakyll
 import System.FilePath (takeFileName)
 import Text.Pandoc (
-    Extension (Ext_fenced_code_attributes, Ext_footnotes, Ext_gfm_auto_identifiers, Ext_implicit_header_references, Ext_smart),
+    Extension (Ext_fenced_code_attributes, Ext_footnotes, Ext_gfm_auto_identifiers, Ext_implicit_header_references, Ext_smart, Ext_tex_math_dollars),
     Extensions,
     ReaderOptions,
     WriterOptions (writerHighlightStyle),
@@ -18,6 +18,11 @@ import Text.Pandoc (
     writerExtensions,
  )
 import Text.Pandoc.Highlighting (Style, breezeDark, styleToCss)
+import Text.Pandoc.Options (
+    HTMLMathMethod (..),
+    WriterOptions (..),
+    defaultKaTeXURL,
+ )
 
 --------------------------------------------------------------------------------
 -- PERSONALIZATION
@@ -200,6 +205,7 @@ pandocExtensionsCustom =
     githubMarkdownExtensions
         <> extensionsFromList
             [ Ext_fenced_code_attributes
+            , Ext_tex_math_dollars
             , Ext_gfm_auto_identifiers
             , Ext_implicit_header_references
             , Ext_smart
@@ -217,6 +223,7 @@ pandocWriterOpts =
     defaultHakyllWriterOptions
         { writerExtensions = pandocExtensionsCustom
         , writerHighlightStyle = Just pandocHighlightStyle
+        , writerHTMLMathMethod = KaTeX defaultKaTeXURL
         }
 
 pandocHighlightStyle :: Style

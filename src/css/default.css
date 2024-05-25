@@ -36,12 +36,15 @@
     @apply text-xl font-bold mt-4;
   }
   p {
-    @apply text-lg leading-loose my-2;
+    @apply leading-loose my-2;
   }
   img {
     @apply mx-auto my-4 rounded-lg;
   }
   div.sourceCode {
     @apply p-4 rounded-lg;
+  }
+  .math.display {
+    @apply overflow-x-auto;
   }
 }
