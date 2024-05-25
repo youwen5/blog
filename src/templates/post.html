@@ -1,19 +1,15 @@
-<main>
-  <article>
-    <header>
-      <h1 class="text-4xl">
-        <a href=".$url$">$title$</a>
-      </h1>
-      <p
-        class="mb-1 mt-2 italic text-lg text-accent-light dark:text-accent-dark"
-      >
-        $desc$
-      </p>
-      <div class="mt-2">$date$</div>
-      <div class="mt-1 text-sm">
-        $if(updated)$(last updated: $updated$)$endif$
-      </div>
-    </header>
-    <section class="post mt-6">$body$</section>
-  </article>
-</main>
+<article>
+  <header>
+    <h1 class="text-4xl">
+      <a href=".$url$">$title$</a>
+    </h1>
+    <p class="mb-1 mt-2 italic text-lg text-accent-light dark:text-accent-dark">
+      $desc$
+    </p>
+    <div class="mt-2">$date$</div>
+    <div class="mt-1 text-sm">
+      $if(updated)$(last updated: $updated$)$endif$
+    </div>
+  </header>
+  <main class="post mt-4">$body$</main>
+</article>
