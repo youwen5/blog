@@ -76,8 +76,9 @@ _bytes_. I only ship a few fonts and a minified stylesheet.
 
 ### speaking of math
 
-Instead of using KaTeX or MathJax, this site uses MathML. There's pros and cons
-to this.
+We can have math inline, like so:
+$\int_\infty^\infty \, e^{-x^2}\,dx = \sqrt{\pi}$. Instead of using KaTeX or
+MathJax, this site uses MathML. There's pros and cons to this.
 
 Pros:
 
