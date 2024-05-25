@@ -11,12 +11,12 @@ module.exports = {
       },
       colors: {
         primary: {
-          dark: "#e2e8f0",
-          light: "#0a0a0a",
+          dark: "#e7e5e4",
+          light: "#44403c",
         },
         secondary: {
           dark: "#2e1065",
-          light: "#4f46e5",
+          light: "#4338ca",
         },
         accent: {
           dark: "#9ca3af",
