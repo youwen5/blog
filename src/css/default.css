@@ -96,4 +96,7 @@
   li {
     @apply my-1;
   }
+  hr {
+    @apply border-0 h-2 bg-muted-light dark:bg-muted-dark my-10 max-w-12 mx-auto rounded-xl;
+  }
 }
