@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "postcss -o src/build/css/bundle.css src/css/*.css",
-    "watch": "postcss -o src/build/css/bundle.css src/css/*.css --watch"
+    "build": "rollup -c",
+    "watch": "rollup -c -w"
   },
   "keywords": [],
   "author": "",

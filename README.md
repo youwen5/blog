@@ -1,4 +1,4 @@
-# Hakyll-powered blog
+# gradient ascent
 
 This repository hosts the source code for my blog, powered by
 [hakyll](https://jaspervdj.be/hakyll/).

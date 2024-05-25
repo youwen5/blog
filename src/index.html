@@ -3,27 +3,29 @@ desc: "a blog about computers, math, hacks, games, and life"
 image: "./images/robert-pearce-UwHN0jU_YqQ-unsplash-800w.jpg"
 lang: "en"
 stylesheet: "default"
-title: "gradient ascent"
+title: "blog | youwen wu"
 ---
 
 <main>
   <section>
     <h2 class="text-3xl">Latest</h2>
-    <hr class="sm:mr-2 max-w-sm border-0 h-0.5 bg-gray-500 rounded-md mt-2" />
+    <hr
+      class="sm:mr-2 max-w-sm border-0 h-0.5 dark:bg-muted-dark bg-muted-light rounded-md mt-2"
+    />
     <ul class="mt-6 space-y-4 md:space-y-8">
       $for(posts)$
       <li class="group">
         <div class="rounded-md p-2">
           <a
             href=".$url$"
-            class="w-fit group-hover:text-gray-400 transition-colors"
+            class="w-fit dark:group-hover:text-muted-dark group-hover:text-muted-light transition-colors"
           >
             <h3 class="text-2xl">$title$</h3>
             <p class="text-sm">$date$</p>
           </a>
         </div>
         <hr
-          class="max-w-[200px] border-0 h-1 bg-gray-800 rounded-lg px-2 group-hover:max-w-[250px] group-hover:bg-violet-950 transition-all duration-400"
+          class="max-w-[200px] border-0 h-1 dark:bg-accent-dark bg-accent-light rounded-lg px-2 group-hover:max-w-[250px] dark:group-hover:bg-secondary-dark group-hover:bg-secondary-light transition-all duration-400"
         />
       </li>
       $endfor$
