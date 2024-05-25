@@ -30,7 +30,11 @@
     @apply text-2xl font-bold;
   }
   h2 {
-    @apply text-2xl font-medium mt-8;
+    @apply text-2xl font-medium mt-8 relative w-fit;
+  }
+  h2::after {
+    @apply block w-12 h-1 bg-muted-light absolute left-0 dark:bg-muted-dark mt-2 rounded-sm;
+    content: "";
   }
   h3,
   h4,
@@ -51,7 +55,7 @@
     @apply font-math;
   }
   math[display="block"] {
-    @apply overflow-x-auto my-1 text-xl;
+    @apply my-1 text-xl;
   }
   ol,
   ul {
