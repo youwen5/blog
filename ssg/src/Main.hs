@@ -79,16 +79,12 @@ main = hakyllWith config $ do
         , "robots.txt"
         , "_config.yml"
         , "images/*"
-        , "js/*"
+        , "out/*"
         , "fonts/*"
         ]
         $ \f -> match f $ do
             route idRoute
             compile copyFileCompiler
-
-    match "build/css/*" $ do
-        route idRoute
-        compile compressCssCompiler
 
     match "posts/*" $ do
         let ctx = constField "type" "article" <> postCtx
