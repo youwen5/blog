@@ -7,6 +7,7 @@ module.exports = {
       fontFamily: {
         sans: ["Inter", "sans-serif"],
         serif: ["Merriweather", "serif"],
+        math: ["Latin Modern Math", "serif"],
       },
       colors: {
         primary: {
@@ -33,4 +34,4 @@ module.exports = {
     },
   },
   plugins: [require("@tailwindcss/typography")],
-};
+}

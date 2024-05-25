@@ -1,26 +1,22 @@
 ---
 author: "Youwen Wu"
 authorTwitter: "@youwen"
-desc: "The first post"
+desc: "a purely functional...blog?"
 image: "./images/waiheke-stony-batter.jpg"
-keywords: "hola, anuncio"
-lang: "cn"
-title: "Ni Hao"
-updated: "2020-09-23T12:00:00Z"
+keywords: "haskell, blog, functional programming"
+lang: "en"
+title: "Why I made my blog in haskell"
+updated: "2024-05-25T12:00:00Z"
 ---
 
-Welcome!
+Welcome! This is the first post on _gradient ascent_ and also one that tests all
+of the features.
 
 <img
   alt="Grapevines among rolling hills leading to the sea"
   src="./images/waiheke-stony-batter.jpg"
   height="200"
 />
-
-Haskell is a great language. It is a pure functional programming language with
-strong static typing. It is also a lazy language, which means that it does not
-evaluate expressions until it is absolutely necessary. This can lead to some
-interesting performance characteristics.
 
 ```haskell
 toSlug :: T.Text -> T.Text

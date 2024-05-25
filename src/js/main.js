@@ -2,19 +2,19 @@ import "../css/default.css"
 
 // @ts-check
 
-document.addEventListener("DOMContentLoaded", () => {
-  var mathElements = document.querySelectorAll(".math.inline, .math.display")
-  mathElements.forEach(function (element) {
-    var tex = element.textContent
-    var displayMode = element.classList.contains("display")
-    var renderedMath = katex.renderToString(tex, {
-      displayMode: displayMode,
-      throwOnError: false,
-    })
-    element.innerHTML = renderedMath
-  })
-})
-
+// document.addEventListener("DOMContentLoaded", () => {
+//   var mathElements = document.querySelectorAll(".math.inline, .math.display")
+//   mathElements.forEach(function (element) {
+//     var tex = element.textContent
+//     var displayMode = element.classList.contains("display")
+//     var renderedMath = katex.renderToString(tex, {
+//       displayMode: displayMode,
+//       throwOnError: false,
+//     })
+//     element.innerHTML = renderedMath
+//   })
+// })
+//
 const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches
 const themeSystem = () => {
   if (prefersDark) {

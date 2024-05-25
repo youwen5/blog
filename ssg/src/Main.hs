@@ -21,7 +21,6 @@ import Text.Pandoc.Highlighting (Style, breezeDark, styleToCss)
 import Text.Pandoc.Options (
     HTMLMathMethod (..),
     WriterOptions (..),
-    defaultKaTeXURL,
  )
 
 --------------------------------------------------------------------------------
@@ -223,7 +222,7 @@ pandocWriterOpts =
     defaultHakyllWriterOptions
         { writerExtensions = pandocExtensionsCustom
         , writerHighlightStyle = Just pandocHighlightStyle
-        , writerHTMLMathMethod = KaTeX defaultKaTeXURL
+        , writerHTMLMathMethod = MathML
         }
 
 pandocHighlightStyle :: Style
