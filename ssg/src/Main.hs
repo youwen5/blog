@@ -5,6 +5,7 @@ import Data.List (isPrefixOf, isSuffixOf)
 import Data.Maybe (fromMaybe)
 import qualified Data.Text as T
 import qualified Data.Text.Slugger as Slugger
+import qualified GHC.IO.Encoding as E
 import Hakyll
 import System.FilePath (takeFileName)
 import Text.Pandoc (
@@ -76,74 +77,76 @@ config =
 -- BUILD
 
 main :: IO ()
-main = hakyllWith config $ do
-    forM_
-        [ "CNAME"
-        , "favicon.ico"
-        , "robots.txt"
-        , "_config.yml"
-        , "images/*"
-        , "out/*"
-        , "fonts/*"
-        ]
-        $ \f -> match f $ do
+main = do
+    E.setLocaleEncoding E.utf8
+    hakyllWith config $ do
+        forM_
+            [ "CNAME"
+            , "favicon.ico"
+            , "robots.txt"
+            , "_config.yml"
+            , "images/*"
+            , "out/*"
+            , "fonts/*"
+            ]
+            $ \f -> match f $ do
+                route idRoute
+                compile copyFileCompiler
+
+        match "posts/*" $ do
+            let ctx = constField "type" "article" <> postCtx
+
+            route $ metadataRoute titleRoute
+            compile $
+                pandocCompilerCustom
+                    >>= loadAndApplyTemplate "templates/post.html" ctx
+                    >>= saveSnapshot "content"
+                    >>= loadAndApplyTemplate "templates/default.html" ctx
+
+        match "index.html" $ do
             route idRoute
-            compile copyFileCompiler
+            compile $ do
+                posts <- recentFirst =<< loadAll "posts/*"
 
-    match "posts/*" $ do
-        let ctx = constField "type" "article" <> postCtx
+                let indexCtx =
+                        listField "posts" postCtx (return posts)
+                            <> constField "root" mySiteRoot
+                            <> constField "feedTitle" myFeedTitle
+                            <> constField "siteName" mySiteName
+                            <> defaultContext
 
-        route $ metadataRoute titleRoute
-        compile $
-            pandocCompilerCustom
-                >>= loadAndApplyTemplate "templates/post.html" ctx
-                >>= saveSnapshot "content"
-                >>= loadAndApplyTemplate "templates/default.html" ctx
+                getResourceBody
+                    >>= applyAsTemplate indexCtx
+                    >>= loadAndApplyTemplate "templates/default.html" indexCtx
 
-    match "index.html" $ do
-        route idRoute
-        compile $ do
-            posts <- recentFirst =<< loadAll "posts/*"
+        match "templates/*" $
+            compile templateBodyCompiler
 
-            let indexCtx =
-                    listField "posts" postCtx (return posts)
-                        <> constField "root" mySiteRoot
-                        <> constField "feedTitle" myFeedTitle
-                        <> constField "siteName" mySiteName
-                        <> defaultContext
+        create ["sitemap.xml"] $ do
+            route idRoute
+            compile $ do
+                posts <- recentFirst =<< loadAll "posts/*"
 
-            getResourceBody
-                >>= applyAsTemplate indexCtx
-                >>= loadAndApplyTemplate "templates/default.html" indexCtx
+                let pages = posts
+                    sitemapCtx =
+                        constField "root" mySiteRoot
+                            <> constField "siteName" mySiteName
+                            <> listField "pages" postCtx (return pages)
 
-    match "templates/*" $
-        compile templateBodyCompiler
+                makeItem ("" :: String)
+                    >>= loadAndApplyTemplate "templates/sitemap.xml" sitemapCtx
 
-    create ["sitemap.xml"] $ do
-        route idRoute
-        compile $ do
-            posts <- recentFirst =<< loadAll "posts/*"
+        create ["rss.xml"] $ do
+            route idRoute
+            compile (feedCompiler renderRss)
 
-            let pages = posts
-                sitemapCtx =
-                    constField "root" mySiteRoot
-                        <> constField "siteName" mySiteName
-                        <> listField "pages" postCtx (return pages)
+        create ["atom.xml"] $ do
+            route idRoute
+            compile (feedCompiler renderAtom)
 
-            makeItem ("" :: String)
-                >>= loadAndApplyTemplate "templates/sitemap.xml" sitemapCtx
-
-    create ["rss.xml"] $ do
-        route idRoute
-        compile (feedCompiler renderRss)
-
-    create ["atom.xml"] $ do
-        route idRoute
-        compile (feedCompiler renderAtom)
-
-    create ["css/code.css"] $ do
-        route idRoute
-        compile (makeStyle pandocHighlightStyle)
+        create ["css/code.css"] $ do
+            route idRoute
+            compile (makeStyle pandocHighlightStyle)
 
 --------------------------------------------------------------------------------
 -- COMPILER HELPERS
