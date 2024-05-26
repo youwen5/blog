@@ -99,7 +99,7 @@ Cons:
 Let's try it now. Here's a simple theorem:
 
 $$
-a^2 + b^2 \ne c^2 \, \forall\,\left\{ a,\,b,\,c \right\} \in \mathbb{Z} \land a,\,b,\,c \ge 3
+a^n + b^n \ne c^n \, \forall\,\left\{ a,\,b,\,c \right\} \in \mathbb{Z} \land n \ge 3
 $$
 
 The proof is trivial and will be left as an exercise to the reader.
