@@ -17,6 +17,8 @@ now as it's the last frontier that linux hasn't conquered. this has actually
 been a great productivity boost for me as windows is so terrible that i _don't
 even want to boot it just for games_.
 
+![i hate you microsoft](./images/i-hate-you-microsoft-torvalds.jpg)
+
 ## spoiled by linux
 
 at the risk of sounding too much like i have a neckbeard and fedora, linux truly
@@ -48,7 +50,9 @@ get GRUB and arch to work. according to google, it basically forces you to sign
 all of your efi boot partitions for dubious security benefits -- in other words,
 make it harder to install free operating systems.
 
-ok, fine. i'll just re-enable this thing. surely it can't be that hard?
+## ok, fine. i'll just re-enable this thing
+
+surely it can't be that hard?
 
 the glorious arch linux wiki of course had an
 [entire page](https://wiki.archlinux.org/title/Unified_Extensible_Firmware_Interface/Secure_Boot)
@@ -61,3 +65,17 @@ up lost in what i call "linux limbo", and so after an hour of trying, i gave up.
 
 whatever, i'll just enable secure boot, then boot directly into windows and
 bypass GRUB.
+
+great. now ethernet doesn't work in windows, but it does in linux. somehow
+microsoft managed to fuck up so bad their hardware support was worse than linux.
+
+and then, i'm not baking this up, i **blue screened**. **_how do you managed to
+make an OS this bad?_**
+
+---
+
+i ended up giving back and returning to my hyprland desktop, where i'm writing
+this now, from neovim (did i mention i use arch)? i can't believe people still
+subject themselves to these subpar experiences and aren't outraged about it.
+frankly, if my only option was to use windows, i'd throw away my computer and
+become a rancher or something. maybe i should do that anyways.
