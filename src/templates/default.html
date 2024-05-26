@@ -50,12 +50,10 @@
     />
     <link rel="stylesheet" href="./out/bundle.css" />
     <link rel="stylesheet" href="./css/code.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css"
-      integrity="sha384-wcIxkf4k558AjM3Yz3BBFQUbk/zgIYC2R0QpeeYb+TwlBVMrlgLqwRjRtGZiK7ww"
-      crossorigin="anonymous"
-    />
+    <script
+      async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/mml-chtml.js"
+    ></script>
 
     <script>
       if (
@@ -77,6 +75,16 @@
         } else {
           themeButton.innerText = "theme: system"
         }
+      }
+      MathJax = {
+        startup: {
+          ready: function () {
+            MathJax.startup.defaultReady()
+            MathJax.startup.promise.then(function () {
+              MathJax.mathml2svgPromise(document.body)
+            })
+          },
+        },
       }
     </script>
   </head>

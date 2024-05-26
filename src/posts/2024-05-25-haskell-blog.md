@@ -74,17 +74,14 @@ seemed like a little too much work to maintain. I switched to hakyll because
       KaTeX though. It doesn't directly render it, but simply injects the KaTeX
       files and renders it client-side.
 
-Also, I can ship practically zero JavaScript with this site. The only script
-right now is the one that manages the light/dark toggle, and can be measured in
-_bytes_. I only ship a few fonts and a minified stylesheet.
-
 ### speaking of math
 
 We can have math inline, like so:
-$\int_\infty^\infty \, e^{-x^2}\,dx = \sqrt{\pi}$. Instead of using KaTeX or
-MathJax, this site uses MathML. There's pros and cons to this.
-
-Pros:
+$\int_\infty^\infty \, e^{-x^2}\,dx = \sqrt{\pi}$. This site ships MathML math
+with its HTML, and the MathJax script to the client. MathJax renders all of the
+math so it looks nice and standardized across browsers, but the math still
+displays regardless (like say if MathJax couldn't load due to slow network)
+because of MathML. Best of both worlds. Pros:
 
 - A little more accessible
 - Can be rendered without additional stylesheets. I just installed the Latin

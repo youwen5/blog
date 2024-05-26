@@ -7,7 +7,6 @@ module.exports = {
       fontFamily: {
         sans: ["Inter", "sans-serif"],
         serif: ["Merriweather", "serif"],
-        math: ["Latin Modern Math", "serif"],
       },
       colors: {
         primary: {
