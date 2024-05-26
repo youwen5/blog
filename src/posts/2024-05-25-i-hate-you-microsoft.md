@@ -50,8 +50,8 @@ make it harder to install free operating systems.
 
 ok, fine. i'll just re-enable this thing. surely it can't be that hard?
 
-the glorious arch linux wiki of course had an (entire
-page)[https://wiki.archlinux.org/title/Unified_Extensible_Firmware_Interface/Secure_Boot]
+the glorious arch linux wiki of course had an
+[entire page](https://wiki.archlinux.org/title/Unified_Extensible_Firmware_Interface/Secure_Boot)
 dedicated to enabling secure boot. while it was fairly straightforward, i ended
 up lost in what i call "linux limbo", and so after an hour of trying, i gave up.
 
