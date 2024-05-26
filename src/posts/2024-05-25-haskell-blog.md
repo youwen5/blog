@@ -77,11 +77,15 @@ seemed like a little too much work to maintain. I switched to hakyll because
 ### speaking of math
 
 We can have math inline, like so:
-$\int_\infty^\infty \, e^{-x^2}\,dx = \sqrt{\pi}$. This site ships MathML math
-with its HTML, and the MathJax script to the client. MathJax renders all of the
-math so it looks nice and standardized across browsers, but the math still
-displays regardless (like say if MathJax couldn't load due to slow network)
-because of MathML. Best of both worlds. Pros:
+$\int_\infty^\infty \, e^{-x^2}\,dx = \sqrt{\pi}$. This site ships semantic
+MathML math with its HTML, and the MathJax script to the client.
+
+It'd be nice if MathML could just be used and supported across all browsers, but
+unfortunately we still aren't quite there yet. Firefox is the only one where
+everything looks 80% of the way to LaTeX. On Safari and Chrome, even simple
+equations like $\sqrt{\pi}$ render improperly.
+
+Pros of MathML:
 
 - A little more accessible
 - Can be rendered without additional stylesheets. I just installed the Latin
@@ -92,6 +96,10 @@ Cons:
 
 - Isn't fully standardized. Might look different on different browsers
 - Rendering quality isn't as good as KaTeX
+
+This site has MathJax render all of the math so it looks nice and standardized
+across browsers, but the math still displays regardless (like say if MathJax
+couldn't load due to slow network) because of MathML. Best of both worlds.
 
 Let's try it now. Here's a simple theorem:
 
