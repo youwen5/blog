@@ -101,4 +101,13 @@
   a:not(code a) {
     @apply external-link;
   }
+  figure {
+    @apply inline-block my-2;
+  }
+  figure img {
+    @apply align-top mb-2;
+  }
+  figure figcaption {
+    @apply text-center;
+  }
 }
