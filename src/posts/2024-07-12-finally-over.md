@@ -57,16 +57,16 @@ days were long and forgettable. if i did this same for this year, id probably be
 able to talk for an hour just about the cool shit i was up to and all the
 amazing people ive met and had to say goodbye to.
 
-the other way to look at how time seems to speed up as you age is that your
-perception of time is defined by meaningful experiences. in general, the spaces
-between each experience feels ephemeral, because you dont have many lasting
-memories to define them by, kind of like filler episodes in an anime. the more
-meaningful experiences you have though, the more markers you have to distinguish
-each block of filler space, which makes everything feel longer. as a young
-child, you're bombarded with special and formative experiences. throughout grade
-school, those experiences slowly decrease (generally), until the tail end of
-senior year. they spike up again through college and then usually slow down
-again for the rest of your life.
+the other way to look at how time seems to speed up is that your perception of
+time is defined by meaningful experiences. in general, the spaces between each
+experience feels ephemeral, because you dont have many lasting memories to
+define them by, kind of like filler episodes in an anime. the more meaningful
+experiences you have though, the more markers you have to distinguish each block
+of filler space, which makes everything feel longer. as a young child, you're
+bombarded with special and formative experiences. throughout grade school, those
+experiences slowly decrease (generally), until the tail end of senior year. they
+spike up again through college and then usually slow down again for the rest of
+your life.
 
 at least, that's what ive heard, and ive experienced that first hand this year.
 i designed and built robots, worked on cool projects, did research, and had so
@@ -90,7 +90,7 @@ of quasi-nostalgia but it doesn't necessarily feel bad.
 > <span style="font-style: normal;">夏が去っても追慕は切だ</span>  
 > Even if the summer ends, the memories of it are still cherished
 
-_nostalgia_. i've been thinking a lot about it and i guess trying to feel it at
+nostalgia. i've been thinking a lot about it and i guess trying to feel it at
 times lately. ive gone through my old music and rewatched some old youtubers and
 scrolled through old texts and dug up wayback machine archives of old web pages.
 there's something so magical about that mid 2010s not-quite-modern but
@@ -146,9 +146,15 @@ guess that's just life.
 
 ## four
 
-some people say that high school is the best 4 years of your life. frankly, i
-think if you believe that, that's quite sad and it gives off huge "peaked in
-high school" vibes. but was senior year the best year of my life _so far_?
+<br />
+
+> <span style="font-style: normal;">そして人生最後の日、君が見えるのな
+> ら</span>  
+> And then if I could see you, on the last day of my life
+
+some people say that high school is the best 4 years of your life. frankly,
+that's quite sad and it gives off huge "peaked in high school" vibes. but was
+senior year the best year of my life _so far_?
 
 maybe. i dont know. i never stayed in one place long enough to really feel
 completely at home and the whole "danville bubble" around here of people who
@@ -162,9 +168,6 @@ here's to many more best years. onto the next.
 
 ---
 
-> <span style="font-style: normal;">そして人生最後の日、君が見えるのな
-> ら</span>  
-> And then if I could see you on the last day of my life  
 > <span style="font-style: normal;">きっと、人生最後の日も愛をうたうの
 > だ</span>  
 > I’m sure, even on the last day of my life, that I’d sing of love  
