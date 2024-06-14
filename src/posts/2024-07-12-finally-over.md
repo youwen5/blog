@@ -179,11 +179,11 @@ here's to many more "best years". onto the next.
   <summary>credits</summary>
     <ul>
       <li>
-  images and lyrics via <a src="https://www.youtube.com/watch?v=F64yFFnZfkI">ヨルシカ</a>
+  images and lyrics via <a href="https://www.youtube.com/watch?v=F64yFFnZfkI">ヨルシカ</a>
   </li>
   <li>
 translations
-<a src="https://ejtranslations.wordpress.com/2017/12/13/yorushika-itte/">courtesy
+<a href="https://ejtranslations.wordpress.com/2017/12/13/yorushika-itte/">courtesy
 of ej</a>
   </li>
 
