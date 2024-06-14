@@ -55,3 +55,40 @@ themeButton.addEventListener("click", () => {
       break
   }
 })
+
+const clearFonts = () => {
+  document.body.classList.remove("font-sans")
+  document.body.classList.remove("font-serif")
+}
+
+const updateFonts = (currentFont) => {
+  if (currentFont && currentFont === "serif") {
+    clearFonts()
+    document.body.classList.add("font-serif")
+  }
+  if (currentFont && currentFont === "sans") {
+    clearFonts()
+    document.body.classList.add("font-sans")
+  }
+  if (!currentFont) {
+    clearFonts()
+  }
+}
+
+let currentFont = localStorage.getItem("font")
+updateFonts()
+
+const fontButton = document.getElementById("font-toggle")
+fontButton.addEventListener("click", () => {
+  currentFont = localStorage.getItem("font")
+  if (currentFont === "sans") {
+    currentFont = "serif"
+    fontButton.innerText = "serif"
+    localStorage.setItem("font", "serif")
+  } else {
+    currentFont = "sans"
+    fontButton.innerText = "sans"
+    localStorage.setItem("font", "sans")
+  }
+  updateFonts(currentFont)
+})

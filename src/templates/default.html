@@ -75,6 +75,25 @@
         } else {
           themeButton.innerText = "theme: system"
         }
+        var fontButton = document.getElementById("font-toggle")
+        const font = localStorage.getItem("font")
+        if (font && font === "serif") {
+          document.body.classList.remove("font-sans")
+          document.body.classList.remove("font-serif")
+          document.body.classList.add("font-serif")
+          fontButton.innerText = "serif"
+        }
+        if (font && font === "sans") {
+          document.body.classList.remove("font-sans")
+          document.body.classList.remove("font-serif")
+          document.body.classList.add("font-sans")
+          fontButton.innerText = "sans"
+        }
+        if (!font) {
+          document.body.classList.remove("font-sans")
+          document.body.classList.remove("font-serif")
+          fontButton.innerText = "serif"
+        }
       }
       MathJax = {
         startup: {
@@ -113,6 +132,11 @@
       <span class="ml-2 font-serif">|</span>
       <button
         id="theme-toggle"
+        class="ml-2 text-sm hover:bg-indigo-200 dark:hover:bg-violet-950 rounded-sm transition-colors p-1 duration-500"
+      ></button>
+      <span class="ml-2 font-serif">|</span>
+      <button
+        id="font-toggle"
         class="ml-2 text-sm hover:bg-indigo-200 dark:hover:bg-violet-950 rounded-sm transition-colors p-1 duration-500"
       ></button>
     </header>
