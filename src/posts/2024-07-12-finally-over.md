@@ -8,10 +8,7 @@ lang: "en"
 title: "finally over"
 ---
 
-<figure>
-  <img src="./images/finally-over-itte.jpg" alt="character looking from balcony from itte, yorushika" width="100%" />
-  <figcaption><em>image via</em> <a href="https://www.youtube.com/watch?v=F64yFFnZfkI" target="__blank">ヨルシカ</a></figcaption>
-</figure>
+  <img style="width: 100vw;" src="./images/finally-over-itte.jpg" alt="character looking from balcony from itte, yorushika"  />
 
 > <span style="font-style: normal;">きっと、人生最後の日を前に思うのだろ
 > う</span>  
@@ -19,15 +16,15 @@ title: "finally over"
 > <span style="font-style: normal;">全部、全部言い足りなくて惜しいけど</span>  
 > All of it, all of it will be unspeakably precious
 
-graduation was last week and ostensibly, im supposed to be happy now. 4 years of
-high school are over. most of the work was boring, some of the teachers were
-awful, and ill be studying in an idyllic campus by the beach come next fall. all
-my friends are going off on vacation to somewhere exciting (and im at home
-writing code and doing math, lol). something's off, though. i spent the last
-semester of senior year wishing it would all be over and now it just
-feels...kinda empty? and somehow i find myself wanting just _one more week_. one
-more week to spend with and say bye to all the people i care about. hell, i'd
-even put up with another week of those stupid gov assignments.
+graduation was last week and ostensibly im supposed to be happy now. 4 grueling
+years of high school are finally over. most of the work was boring, some of the
+teachers were awful, and ill be studying in an idyllic campus by the beach come
+next fall. all my friends are going off on vacation to somewhere exciting (and
+im at home writing code and doing math, lol). something feels off, though. i
+spent the last semester of senior year wishing it would all be over and now it
+just feels...kinda empty? and somehow i find myself wanting just _one more
+week_. one more week to spend with and say bye to all the people i care about.
+hell, i'd even put up with another week of those stupid gov assignments.
 
 ---
 
@@ -40,15 +37,15 @@ even put up with another week of those stupid gov assignments.
 > <span style="font-style: normal;">忘れてたんだ</span>  
 >  So I had forgotten about it, but
 
-there's this idea that your perception of time speeds up as you age and senior
-year is supposed to be gone in a flash. in some respects, it does feel that way.
-freshman year felt faster than middle school and sophomore year felt faster than
-online freshman year. senior year at school was boring but didn't necessarily
-feel _long_. most of my classes certainly weren't fun but it's not like i was
-_dying_ to get out. the first semester passed and we all went through that
-painful college application process and then second semester started and
-suddenly it was may and everyone (including me) was counting the days until
-graduation.
+there's this common idea that your perception of time speeds up as you age and
+senior year is supposed to be done in a flash. in some respects, it does feel
+that way. freshman year felt faster than middle school and sophomore year felt
+faster than freshman year, which i spent online. senior year at school was
+boring but didn't necessarily feel _long_. most of my classes certainly weren't
+fun but it's not like i was dying to get out. the first semester passed and we
+all went through that painful college application process and then second
+semester started and suddenly it was may and everyone (including me) was
+counting the days until graduation.
 
 but i also did so much more _stuff_ in senior year. sophomore year was terrible.
 i was kinda depressed, had just moved and barely knew anyone, and the days were
@@ -77,8 +74,8 @@ in sophomore year and yet the past 3 months felt longer than my entire freshman
 year. senior year went by quickly but my memories of it also make it feel like
 one of the longest periods of my life. reminiscing about something that just
 happened in december 2023 or early 2024 almost feels like im thinking about
-stuff from years past. there's something so weird and "empty" about this feeling
-of quasi-nostalgia but it doesn't necessarily feel bad.
+stuff from years past. there's something so melancholic and "empty" about this
+feeling of quasi-nostalgia but it doesn't necessarily feel bad.
 
 ## two
 
@@ -92,7 +89,7 @@ of quasi-nostalgia but it doesn't necessarily feel bad.
 nostalgia. i've been thinking a lot about it and i guess trying to feel it at
 times lately. ive gone through my old music and rewatched some old youtubers and
 scrolled through old texts and dug up wayback machine archives of old web pages.
-there's something so magical about that mid 2010s not-quite-modern but
+there's something magical about that mid 2010s not-quite-modern but
 not-quite-outdated web design that i spent my childhood with.
 
 it's not like im digging up anything super old. my earliest photos date back to
@@ -103,15 +100,15 @@ suppose not unexpected) just how different everything feels in just 2-3 years.
 
 you know that corny saying that goes "we didn't realize we were making memories,
 we just knew we were having fun"? i was convinced i wouldnt let this happen to
-me. id even sometimes stop and consciously acknowledge it, when doing something
-fun. but somehow, it didn't _really_ hit me until after it was over, and we all
-went home from grad night, and the past 4 years all truly just _became
-memories_. it's weird, though. i don't think it's particularly useful to
-constantly think about the fact that you might be making lifelong memories
-whenever you're doing something fun. it doesn't add anything to your experience.
-at the same time, if i was really, truly aware of that fact, as i am now, i
-wouldve done a few things differently, said a few things differently. but i
-guess that's just the nature of regret.
+me. id even sometimes stop and consciously acknowledge it. but somehow, it
+didn't _really_ hit me until after it was over, and we all went home from grad
+night, and the past 4 years all truly became _just_ memories. it's weird,
+though. i don't think it's particularly useful to constantly think about the
+fact that you might be making lifelong memories whenever you're doing something
+fun. it doesn't add anything to your experience. at the same time, if i was
+really, truly aware of that fact, as i am now, i wouldve done a few things
+differently, said a few things differently. but i guess that's just the nature
+of regret.
 
 ## three
 
@@ -149,21 +146,21 @@ guess that's just life.
 
 > <span style="font-style: normal;">そして人生最後の日、君が見えるのな
 > ら</span>  
-> And then if I could see you, on the last day of my life
+> And then if I could see you on the last day of my life
 
-some people say that high school is the best 4 years of your life. frankly,
-that's quite sad and it gives off huge "peaked in high school" vibes. but was
-senior year the best year of my life _so far_?
+some people have told me that high school is the best 4 years of your life.
+that's frankly quite sad and probably not true. but was the last year the best
+year of my life _so far_?
 
 maybe. i dont know. i never stayed in one place long enough to really feel
 completely at home and the whole "danville bubble" around here of people who
 grew up and spent their whole lives here who cant comprehend life anywhere else
 definitely doesnt apply to me. ive known the people here at most for 3 years and
 mostly for only 1 or 2, but ive had an amazing year. i guess it'd be fair to
-call it the best year so far, but i certainly wont let it be the best year of my
-_life_.
+call it the best year so far, but i certainly wont let it be the best year of
+_my life_.
 
-here's to many more best years. onto the next.
+here's to many more "best years". onto the next.
 
 ---
 
@@ -173,4 +170,22 @@ here's to many more best years. onto the next.
 > <span style="font-style: normal;">全部、全部無駄じゃなかったって言う</span>  
 >  Because you’d tell me none of it, none of it was in vain
 
-[translations courtesy of ej](https://ejtranslations.wordpress.com/2017/12/13/yorushika-itte/)
+<figure>
+  <img alt="girl looking over balcony, from itte, yorushika" src="./images/finally-over-balcony2.png" />
+  <figcaption></figcaption>
+</figure>
+
+<details>
+  <summary>credits</summary>
+    <ul>
+      <li>
+  images and lyrics via <a src="https://www.youtube.com/watch?v=F64yFFnZfkI">ヨルシカ</a>
+  </li>
+  <li>
+translations
+<a src="https://ejtranslations.wordpress.com/2017/12/13/yorushika-itte/">courtesy
+of ej</a>
+  </li>
+
+</ul>
+</details>
