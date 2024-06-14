@@ -5,7 +5,7 @@ desc: "a reflection on senior year"
 image: "./images/finally-over-itte.jpg"
 keywords: "graduation, friends, life"
 lang: "en"
-title: "it's finally over"
+title: "finally over"
 ---
 
 <figure>
@@ -46,16 +46,15 @@ freshman year felt faster than middle school and sophomore year felt faster than
 online freshman year. senior year at school was boring but didn't necessarily
 feel _long_. most of my classes certainly weren't fun but it's not like i was
 _dying_ to get out. the first semester passed and we all went through that
-painful college application process and then second semester started and before
-you know it it was may and everyone (including me) was counting the days until
+painful college application process and then second semester started and
+suddenly it was may and everyone (including me) was counting the days until
 graduation.
 
-but i also did so much more in senior year. if you asked me to describe my
-sophomore year, i could probably give you a few lines. sophomore year was
-terrible. i was kinda depressed, had just moved and barely knew anyone, and the
-days were long and forgettable. if i did this same for this year, id probably be
-able to talk for an hour just about the cool shit i was up to and all the
-amazing people ive met and had to say goodbye to.
+but i also did so much more _stuff_ in senior year. sophomore year was terrible.
+i was kinda depressed, had just moved and barely knew anyone, and the days were
+long and forgettable. if i did this same for this year, id probably be able to
+talk for an hour just about the cool shit i was up to and all the amazing people
+ive met and had to say goodbye to.
 
 the other way to look at how time seems to speed up is that your perception of
 time is defined by meaningful experiences. in general, the spaces between each
