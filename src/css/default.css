@@ -110,4 +110,10 @@
   figure figcaption {
     @apply text-center;
   }
+  details {
+    @apply cursor-pointer;
+  }
+  details summary {
+    @apply mb-1;
+  }
 }
