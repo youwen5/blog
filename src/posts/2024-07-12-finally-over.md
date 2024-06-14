@@ -25,9 +25,9 @@ awful, and ill be studying in an idyllic campus by the beach come next fall. all
 my friends are going off on vacation to somewhere exciting (and im at home
 writing code and doing math, lol). something's off, though. i spent the last
 semester of senior year wishing it would all be over and now it just
-feels...kinda empty? and all i can ask for is just _one more week_. one more
-week to spend with and say bye to all the people i care about. hell, i'd even
-put up with another week of those stupid gov assignments.
+feels...kinda empty? and somehow i find myself wanting just _one more week_. one
+more week to spend with and say bye to all the people i care about. hell, i'd
+even put up with another week of those stupid gov assignments.
 
 ---
 
