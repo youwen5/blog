@@ -52,39 +52,20 @@
   }
   ol,
   ul {
-    @apply list-inside leading-loose;
+    @apply list-inside leading-loose sm:leading-[2] sm:text-lg font-light;
   }
   ul {
     @apply list-disc ml-2;
   }
   ol {
-    counter-reset: item;
-  }
-
-  ol li {
-    display: block;
-  }
-
-  ol li:before {
-    content: counters(item, ".") ". ";
-    counter-increment: item;
+    @apply list-decimal ml-2;
   }
 
   ol ol {
-    li {
-      @apply ml-2;
-    }
-    counter-reset: subitem;
+    @apply list-disc ml-4;
   }
-
-  ol ol li:before {
-    @apply ml-4;
-    content: counter(item, upper-alpha) ". ";
-    counter-increment: subitem;
-  }
-
-  ol ol ol li:before {
-    content: counter(subitem, lower-roman) ". ";
+  ol ol ol {
+    @apply list-["-"] ml-4;
   }
   li {
     @apply my-1;
