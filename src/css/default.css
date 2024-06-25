@@ -42,7 +42,7 @@
     @apply text-xl font-medium mt-8 text-accent-light dark:text-accent-dark;
   }
   p {
-    @apply leading-loose sm:leading-[2] my-4 overflow-x-auto sm:text-lg;
+    @apply leading-loose sm:leading-[2] my-4 overflow-x-auto sm:text-lg font-light;
   }
   img {
     @apply mx-auto my-6 rounded-lg;
