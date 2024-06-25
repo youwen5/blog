@@ -55,10 +55,10 @@
     @apply list-inside leading-loose sm:leading-[2] sm:text-lg font-light;
   }
   ul {
-    @apply list-disc ml-2;
+    @apply list-disc;
   }
   ol {
-    @apply list-decimal ml-2;
+    @apply list-decimal;
   }
 
   ol ol {
