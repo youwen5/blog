@@ -1,11 +1,11 @@
 ---
 author: "Youwen Wu"
 authorTwitter: "@youwen"
-desc: "a reflection on senior year"
+desc: "reflections on senior year"
 image: "./images/finally-over-itte.jpg"
 keywords: "graduation, friends, life"
 lang: "en"
-title: "finally over"
+title: "your last first day"
 ---
 
   <img style="width: 100vw;" src="./images/finally-over-itte.jpg" alt="character looking from balcony from itte, yorushika"  />
