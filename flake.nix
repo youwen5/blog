@@ -37,8 +37,10 @@
               shell.buildInputs = [
                 hakyll-site
                 hls
-                pkgs.nodePackages.pnpm
-                pkgs.nodePackages.nodejs
+                nodejs
+                pkgs.nodePackages.rollup
+                pkgs.nodePackages.npm
+                pkgs.node2nix
               ];
               shell.tools = {
                 cabal = "latest";
@@ -54,6 +56,10 @@
           inherit (haskellNix) config;
         };
 
+        nodejs = pkgs.nodejs;
+
+        nodeDeps = (pkgs.callPackage ./nix { inherit pkgs nodejs system; }).nodeDependencies;
+
         flake = pkgs.hakyllProject.flake { };
 
         executable = "ssg:exe:hakyll-site";
@@ -62,9 +68,10 @@
 
         website = pkgs.stdenv.mkDerivation {
           name = "website";
-          buildInputs =
-            [
-            ];
+          buildInputs = [
+            nodejs
+            pkgs.nodePackages.rollup
+          ];
           src = pkgs.nix-gitignore.gitignoreSourcePure [
             ./.gitignore
             ".git"
@@ -82,6 +89,10 @@
 
           buildPhase = ''
             ${flake.packages.${executable}}/bin/hakyll-site build --verbose
+            ln -s ${nodeDeps}/lib/node_modules ./node_modules
+
+            export PATH="${nodeDeps}/bin:$PATH"
+            rollup -c
           '';
 
           installPhase = ''
@@ -101,7 +112,7 @@
         };
 
         packages = {
-          inherit hakyll-site website;
+          inherit hakyll-site website nodeDeps;
           default = website;
         };
 
