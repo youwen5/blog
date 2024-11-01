@@ -14,7 +14,7 @@ you know what you are doing.
 
 Allow the `.envrc`:
 
-```sh
+```bash
 direnv allow
 ```
 
@@ -28,7 +28,7 @@ Here's how to do it locally.
 
 First, we need to build the site. Run
 
-```sh
+```bash
 hakyll-site build
 
 # sometimes, we need to ignore the cache if things aren't working
@@ -51,7 +51,7 @@ In the directory, there is a `node_modules` symlink to
 `result/lib/node_modules`. If we build the `nodeDeps` package, the
 `node_modules` will be made available at this path. So, run the following:
 
-```sh
+```bash
 nix build .#nodeDeps
 ```
 
@@ -61,7 +61,7 @@ need to re-run the above command or else node_modules will not be accessible.
 
 Finally, run the following to generate the bundled CSS and JS files.
 
-```
+```bash
 rollup -c
 ```
 
