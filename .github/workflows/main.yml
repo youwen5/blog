@@ -8,10 +8,9 @@ jobs:
   build-nix:
     runs-on: ubuntu-latest
     steps:
-      - uses: |
-        actions/checkout@v4
-        DeterminateSystems/nix-installer-action@main
-        DeterminateSystems/magic-nix-cache-action@main
+      - uses: actions/checkout@v4
+      - uses: DeterminateSystems/nix-installer-action@main
+      - uses: DeterminateSystems/magic-nix-cache-action@main
 
       - name: Install Nix
         uses: cachix/install-nix-action@v30
@@ -24,12 +23,6 @@ jobs:
             experimental-features = nix-command flakes
             substituters = https://cache.nixos.org https://cache.iog.io
             trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ=
-
-      - name: Build with cachix
-        uses: cachix/cachix-action@v15
-        # with:
-        #   name: hakyll-nix-template
-        #   authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
 
       - run: nix build --accept-flake-config
 
