@@ -88,6 +88,9 @@
           ) "${pkgs.glibcLocales}/lib/locale/locale-archive";
 
           buildPhase = ''
+            # remove the node_modules symlink
+            rm -rf node_modules
+
             ${flake.packages.${executable}}/bin/hakyll-site build --verbose
             ln -s ${nodeDeps}/lib/node_modules ./node_modules
 
