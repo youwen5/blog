@@ -8,7 +8,10 @@ jobs:
   build-nix:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: |
+        actions/checkout@v4
+        DeterminateSystems/nix-installer-action@main
+        DeterminateSystems/magic-nix-cache-action@main
 
       - name: Install Nix
         uses: cachix/install-nix-action@v30
@@ -24,9 +27,9 @@ jobs:
 
       - name: Build with cachix
         uses: cachix/cachix-action@v15
-        with:
-          name: hakyll-nix-template
-          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+        # with:
+        #   name: hakyll-nix-template
+        #   authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
 
       - run: nix build --accept-flake-config
 
