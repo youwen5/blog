@@ -37,6 +37,8 @@
               shell.buildInputs = [
                 hakyll-site
                 hls
+                pkgs.nodePackages.pnpm
+                pkgs.nodePackages.nodejs
               ];
               shell.tools = {
                 cabal = "latest";
@@ -60,7 +62,9 @@
 
         website = pkgs.stdenv.mkDerivation {
           name = "website";
-          buildInputs = [ ];
+          buildInputs =
+            [
+            ];
           src = pkgs.nix-gitignore.gitignoreSourcePure [
             ./.gitignore
             ".git"

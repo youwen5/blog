@@ -92,7 +92,7 @@
     @apply text-center;
   }
   details {
-    @apply cursor-pointer;
+    @apply cursor-pointer leading-loose sm:leading-[2] my-4 overflow-x-auto sm:text-lg font-light;
   }
   details summary {
     @apply mb-1;
