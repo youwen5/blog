@@ -1,5 +1,5 @@
 {
-  description = "hakyll-nix-template";
+  description = "gradient ascent";
 
   nixConfig = {
     allow-import-from-derivation = "true";
@@ -16,16 +16,24 @@
   inputs.nixpkgs.follows = "haskellNix/nixpkgs-unstable";
   inputs.flake-utils.url = "github:numtide/flake-utils";
 
-  outputs = { self, nixpkgs, flake-utils, haskellNix }:
-    flake-utils.lib.eachDefaultSystem (system:
+  outputs =
+    {
+      self,
+      nixpkgs,
+      flake-utils,
+      haskellNix,
+    }:
+    flake-utils.lib.eachDefaultSystem (
+      system:
       let
         hls = pkgs.haskell-language-server;
-        overlays = [ haskellNix.overlay
+        overlays = [
+          haskellNix.overlay
           (final: prev: {
             hakyllProject = final.haskell-nix.project' {
               src = ./ssg;
               compiler-nix-name = "ghc948";
-              modules = [{ doHaddock = false; }];
+              modules = [ { doHaddock = false; } ];
               shell.buildInputs = [
                 hakyll-site
                 hls
@@ -44,7 +52,7 @@
           inherit (haskellNix) config;
         };
 
-        flake = pkgs.hakyllProject.flake {};
+        flake = pkgs.hakyllProject.flake { };
 
         executable = "ssg:exe:hakyll-site";
 
@@ -52,7 +60,7 @@
 
         website = pkgs.stdenv.mkDerivation {
           name = "website";
-          buildInputs = [];
+          buildInputs = [ ];
           src = pkgs.nix-gitignore.gitignoreSourcePure [
             ./.gitignore
             ".git"
@@ -64,9 +72,9 @@
           #   https://github.com/NixOS/nix/issues/318#issuecomment-52986702
           #   https://github.com/MaxDaten/brutal-recipes/blob/source/default.nix#L24
           LANG = "en_US.UTF-8";
-          LOCALE_ARCHIVE = pkgs.lib.optionalString
-            (pkgs.buildPlatform.libc == "glibc")
-            "${pkgs.glibcLocales}/lib/locale/locale-archive";
+          LOCALE_ARCHIVE = pkgs.lib.optionalString (
+            pkgs.buildPlatform.libc == "glibc"
+          ) "${pkgs.glibcLocales}/lib/locale/locale-archive";
 
           buildPhase = ''
             ${flake.packages.${executable}}/bin/hakyll-site build --verbose
@@ -78,7 +86,9 @@
           '';
         };
 
-      in flake // rec {
+      in
+      flake
+      // {
         apps = {
           default = flake-utils.lib.mkApp {
             drv = hakyll-site;
@@ -90,6 +100,8 @@
           inherit hakyll-site website;
           default = website;
         };
+
+        formatter = pkgs.nixfmt-rfc-style;
       }
     );
 }
