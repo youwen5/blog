@@ -68,7 +68,7 @@ actually makes it pretty elegant for declaring routes and "rendering" pipelines.
 ### speaking of math
 
 We can have math inline, like so:
-$\int_\infty^{-\infty} \, e^{-x^2}\,dx = \sqrt{\pi}$. This site ships semantic
+$\int_{-\infty}^\infty \, e^{-x^2}\,dx = \sqrt{\pi}$. This site ships semantic
 MathML math with its HTML, and the MathJax script to the client.
 
 It'd be nice if MathML could just be used and supported across all browsers, but
