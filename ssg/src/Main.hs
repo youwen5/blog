@@ -28,13 +28,13 @@ import Text.Pandoc.Options (
 -- PERSONALIZATION
 
 mySiteName :: String
-mySiteName = "gradient ascent"
+mySiteName = "conditional finality"
 
 mySiteRoot :: String
 mySiteRoot = "https://blog.youwen.dev"
 
 myFeedTitle :: String
-myFeedTitle = "gradient ascent"
+myFeedTitle = "conditional finality"
 
 myFeedDescription :: String
 myFeedDescription = "on computers, hacks, math, and life"

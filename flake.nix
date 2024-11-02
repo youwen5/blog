@@ -1,5 +1,5 @@
 {
-  description = "gradient ascent";
+  description = "conditional finality";
 
   nixConfig = {
     allow-import-from-derivation = "true";
