@@ -1,19 +1,7 @@
 {
   description = "conditional finality";
 
-  nixConfig = {
-    allow-import-from-derivation = "true";
-    bash-prompt = "[hakyll-nix]λ ";
-    extra-substituters = [
-      "https://cache.iog.io"
-    ];
-    extra-trusted-public-keys = [
-      "hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ="
-    ];
-  };
-
-  inputs.haskellNix.url = "github:input-output-hk/haskell.nix";
-  inputs.nixpkgs.follows = "haskellNix/nixpkgs-unstable";
+  inputs.nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
   inputs.flake-utils.url = "github:numtide/flake-utils";
 
   outputs =
@@ -21,54 +9,21 @@
       self,
       nixpkgs,
       flake-utils,
-      haskellNix,
     }:
     flake-utils.lib.eachDefaultSystem (
       system:
       let
-        hls = pkgs.haskell-language-server;
-        overlays = [
-          haskellNix.overlay
-          (final: prev: {
-            hakyllProject = final.haskell-nix.project' {
-              src = ./ssg;
-              compiler-nix-name = "ghc948";
-              modules = [ { doHaddock = false; } ];
-              shell.buildInputs = [
-                hakyll-site
-                hls
-                nodejs
-                pkgs.nodePackages.rollup
-                pkgs.nodePackages.npm
-                pkgs.node2nix
-              ];
-              shell.tools = {
-                cabal = "latest";
-                hlint = "latest";
-                haskell-language-server = "latest";
-              };
-            };
-          })
-        ];
-
-        pkgs = import nixpkgs {
-          inherit overlays system;
-          inherit (haskellNix) config;
-        };
+        pkgs = import nixpkgs { inherit system; };
 
         nodejs = pkgs.nodejs;
 
         nodeDeps = (pkgs.callPackage ./nix { inherit pkgs nodejs system; }).nodeDependencies;
 
-        flake = pkgs.hakyllProject.flake { };
-
-        executable = "ssg:exe:hakyll-site";
-
-        hakyll-site = flake.packages.${executable};
+        hakyll-site = pkgs.haskellPackages.callCabal2nix "hakyll-site" ./ssg { };
 
         website = pkgs.stdenv.mkDerivation {
           name = "website";
-          buildInputs = [
+          nativeBuildInputs = [
             nodejs
             pkgs.nodePackages.rollup
           ];
@@ -91,7 +46,7 @@
             # remove the node_modules symlink
             rm -rf node_modules
 
-            ${flake.packages.${executable}}/bin/hakyll-site build --verbose
+            ${self.packages.${system}.hakyll-site}/bin/hakyll-site build
             ln -s ${nodeDeps}/lib/node_modules ./node_modules
 
             export PATH="${nodeDeps}/bin:$PATH"
@@ -105,8 +60,7 @@
         };
 
       in
-      flake
-      // {
+      {
         apps = {
           default = flake-utils.lib.mkApp {
             drv = hakyll-site;
@@ -117,6 +71,21 @@
         packages = {
           inherit hakyll-site website nodeDeps;
           default = website;
+        };
+
+        devShells.default = pkgs.haskellPackages.shellFor {
+          packages = hsPkgs: [
+            hsPkgs.distribution-nixpkgs
+            self.packages.${system}.hakyll-site
+          ];
+
+          withHoogle = true;
+
+          nativeBuildInputs = with pkgs; [
+            cabal-install
+            haskellPackages.cabal-gild
+            haskellPackages.haskell-language-server
+          ];
         };
 
         formatter = pkgs.nixfmt-rfc-style;
