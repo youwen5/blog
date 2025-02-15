@@ -9,13 +9,13 @@ title: "a haskellian blog"
 updated: "2024-05-25T12:00:00Z"
 ---
 
-Welcome! This is the first post on _conditional finality_ and also one that tests all
+Welcome! This is the first post on _The Involution_ and also one that tests all
 of the features.
 
-<img
-  alt="conditional finality"
-  src="./images/conditional-finality.png"
-/>
+<!--<img-->
+<!--  alt="conditional finality"-->
+<!--  src="./images/conditional-finality.png"-->
+<!--/>-->
 
 > A monad is just a monoid in the category of endofunctors, what's the problem?
 

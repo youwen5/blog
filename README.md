@@ -1,4 +1,4 @@
-# conditional finality - yet another developer blog
+# the involution - yet another developer blog
 
 This repository hosts the source code for my blog, written in Haskell and
 powered by [hakyll](https://jaspervdj.be/hakyll/) and

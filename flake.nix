@@ -1,5 +1,5 @@
 {
-  description = "conditional finality";
+  description = "the involution";
 
   inputs.nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
   inputs.flake-utils.url = "github:numtide/flake-utils";
