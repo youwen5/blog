@@ -17,21 +17,20 @@
 
         nodejs = pkgs.nodejs;
 
-        nodeDeps = (pkgs.callPackage ./nix { inherit pkgs nodejs system; }).nodeDependencies;
-
         hakyll-site = pkgs.haskellPackages.callCabal2nix "hakyll-site" ./ssg { };
 
+        nodeDeps = pkgs.importNpmLock.buildNodeModules {
+          inherit nodejs;
+          npmRoot = ./.;
+        };
+
         website = pkgs.stdenv.mkDerivation {
-          name = "website";
-          nativeBuildInputs = [
-            nodejs
-            pkgs.nodePackages.rollup
-          ];
-          src = pkgs.nix-gitignore.gitignoreSourcePure [
-            ./.gitignore
-            ".git"
-            ".github"
-          ] ./.;
+          pname = "website";
+          version = "0.1.0";
+
+          src = ./.;
+
+          nativeBuildInputs = [ pkgs.nodePackages.npm ];
 
           # LANG and LOCALE_ARCHIVE are fixes pulled from the community:
           #   https://github.com/jaspervdj/hakyll/issues/614#issuecomment-411520691
@@ -43,14 +42,10 @@
           ) "${pkgs.glibcLocales}/lib/locale/locale-archive";
 
           buildPhase = ''
-            # remove the node_modules symlink
-            rm -rf node_modules
-
+            ln -s ${nodeDeps}/node_modules node_modules
             ${self.packages.${system}.hakyll-site}/bin/hakyll-site build
-            ln -s ${nodeDeps}/lib/node_modules ./node_modules
 
-            export PATH="${nodeDeps}/bin:$PATH"
-            rollup -c
+            npm run build
           '';
 
           installPhase = ''
@@ -79,12 +74,17 @@
             self.packages.${system}.hakyll-site
           ];
 
+          npmDeps = nodeDeps;
+
           withHoogle = true;
 
           nativeBuildInputs = with pkgs; [
             cabal-install
             haskellPackages.cabal-gild
             haskellPackages.haskell-language-server
+            pkgs.importNpmLock.hooks.linkNodeModulesHook
+            nodejs
+            pkgs.nodePackages.npm
           ];
         };
 
