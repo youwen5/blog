@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>youwen wu | The Involution</title>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="a weblog about computers, math, hacks, games, and life" />
+     
+
+    <meta property="og:site_name" content="The Involution" />
+    <meta property="og:title" content="youwen wu" />
+    <meta property="og:url" content="https://blog.youwen.dev/index.html" />
+    <meta property="og:description" content="a weblog about computers, math, hacks, games, and life" />
+    
+    <meta property="og:image" content="https://blog.youwen.dev./images/gradient-ascent.jpg" />
+     
+    <meta property="og:type" content="website" />
+     
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:image" content="https://blog.youwen.dev./images/gradient-ascent.jpg" />
+    
+    <meta property="twitter:site" content="The Involution" />
+    <meta property="twitter:title" content="youwen wu" />
+    <meta property="twitter:description" content="a weblog about computers, math, hacks, games, and life" />
+    
+
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="canonical" href="https://blog.youwen.dev/index.html" />
+
+    <link
+      rel="alternate"
+      href="./atom.xml"
+      title="The Involution"
+      type="application/atom+xml"
+    />
+    <link
+      rel="alternate"
+      href="./rss.xml"
+      title="The Involution"
+      type="application/rss+xml"
+    />
+    <link rel="stylesheet" href="./out/bundle.css" />
+    <link rel="stylesheet" href="./css/code.css" />
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/mml-chtml.js"
+    ></script>
+
+    <script>
+      if (
+        localStorage.theme === "dark" ||
+        (!("theme" in localStorage) &&
+          window.matchMedia("(prefers-color-scheme: dark)").matches)
+      ) {
+        document.documentElement.classList.add("dark")
+      } else {
+        document.documentElement.classList.remove("dark")
+      }
+      window.onload = () => {
+        var themeButton = document.getElementById("theme-toggle")
+        const theme = localStorage.getItem("theme")
+        if (theme === "light") {
+          themeButton.innerText = "theme: light"
+        } else if (theme === "dark") {
+          themeButton.innerText = "theme: dark"
+        } else {
+          themeButton.innerText = "theme: system"
+        }
+        var fontButton = document.getElementById("font-toggle")
+        const font = localStorage.getItem("font")
+        if (font && font === "serif") {
+          document.body.classList.remove("font-sans")
+          document.body.classList.remove("font-serif")
+          document.body.classList.add("font-serif")
+          fontButton.innerText = "serif"
+        }
+        if (font && font === "sans") {
+          document.body.classList.remove("font-sans")
+          document.body.classList.remove("font-serif")
+          document.body.classList.add("font-sans")
+          fontButton.innerText = "sans"
+        }
+        if (!font) {
+          document.body.classList.remove("font-sans")
+          document.body.classList.remove("font-serif")
+          fontButton.innerText = "serif"
+        }
+      }
+      MathJax = {
+        startup: {
+          ready: function () {
+            MathJax.startup.defaultReady()
+            MathJax.startup.promise.then(function () {
+              MathJax.mathml2svgPromise(document.body)
+            })
+          },
+        },
+      }
+    </script>
+  </head>
+  <body
+    class="container max-w-3xl mx-auto px-4 transition-colors duration-[2s]"
+  >
+    <header class="mt-14 md:mt-24 mb-14">
+      <div class="inline-flex items-center w-full">
+        <h1 class="text-4xl md:text-5xl font-serif font-medium">
+          <a
+            href="/"
+            class="dark:hover:text-muted-dark hover:text-muted-light transition-all duration-500 text-nowrap tracking-wide"
+            ><em>The Involution.</em></a
+          >
+        </h1>
+        <div
+          class="w-full flex-grow flex-shrink rounded-lg h-1 bg-muted-light dark:bg-muted-dark mx-4"
+        ></div>
+      </div>
+      <p class="mt-8 mb-3 px-1 italic font-light">
+        a web-log about computers and math and hacking.
+      </p>
+      <a class="text-sm text-iris-light dark:text-iris-dark hover:text-love-light dark:hover:text-love-dark" href="https://youwen.dev"
+        ><em>by </em>Youwen Wu</a
+      >
+      <span class="ml-2 font-serif">|</span>
+      <button
+        id="theme-toggle"
+        class="ml-2 text-sm hover:text-accent-light dark:hover:text-muted-dark"
+      ></button>
+      <span class="ml-2 font-serif">|</span>
+      <button
+        id="font-toggle"
+        class="ml-2 text-sm hover:text-accent-light dark:hover:text-muted-dark"
+      ></button>
+    </header>
+    <main>
+  <section>
+    <h2 class="text-3xl">Latest</h2>
+    <hr
+      class="sm:mr-2 max-w-sm border-0 h-0.5 dark:bg-muted-dark bg-muted-light rounded-md mt-2"
+    />
+    <ul class="mt-6 space-y-4 md:space-y-8">
+      
+      <li class="group">
+        <div class="rounded-md p-2">
+          <a
+            href="./random-variables-distributions-and-probability-theory.html"
+            class="w-fit dark:group-hover:text-iris-dark group-hover:text-iris-light transition-colors"
+          >
+            <h3 class="text-2xl">Random variables, distributions, and probability theory</h3>
+            <p
+              class="italic text-accent-light dark:text-accent-dark my-1 group-hover:dark:text-muted-dark group-hover:text-muted-light transition-colors"
+            >
+              An overview of discrete and continuous random variables and their distributions and moment generating functions
+            </p>
+            <p class="text-sm">2025-02-16</p>
+          </a>
+        </div>
+        <hr
+          class="max-w-[200px] border-0 h-1 dark:bg-accent-dark bg-accent-light rounded-lg px-2 group-hover:max-w-[250px] dark:group-hover:bg-iris-dark group-hover:bg-iris-light transition-all duration-400"
+        />
+      </li>
+      
+      <li class="group">
+        <div class="rounded-md p-2">
+          <a
+            href="./an-assortment-of-preliminaries-on-linear-algebra.html"
+            class="w-fit dark:group-hover:text-iris-dark group-hover:text-iris-light transition-colors"
+          >
+            <h3 class="text-2xl">An assortment of preliminaries on linear algebra</h3>
+            <p
+              class="italic text-accent-light dark:text-accent-dark my-1 group-hover:dark:text-muted-dark group-hover:text-muted-light transition-colors"
+            >
+              and also a test for pandoc
+            </p>
+            <p class="text-sm">2025-02-15</p>
+          </a>
+        </div>
+        <hr
+          class="max-w-[200px] border-0 h-1 dark:bg-accent-dark bg-accent-light rounded-lg px-2 group-hover:max-w-[250px] dark:group-hover:bg-iris-dark group-hover:bg-iris-light transition-all duration-400"
+        />
+      </li>
+      
+      <li class="group">
+        <div class="rounded-md p-2">
+          <a
+            href="./nix-automatic-hash-updates-made-easy.html"
+            class="w-fit dark:group-hover:text-iris-dark group-hover:text-iris-light transition-colors"
+          >
+            <h3 class="text-2xl">Nix automatic hash updates made easy</h3>
+            <p
+              class="italic text-accent-light dark:text-accent-dark my-1 group-hover:dark:text-muted-dark group-hover:text-muted-light transition-colors"
+            >
+              keep your flakes up to date
+            </p>
+            <p class="text-sm">2024-12-28</p>
+          </a>
+        </div>
+        <hr
+          class="max-w-[200px] border-0 h-1 dark:bg-accent-dark bg-accent-light rounded-lg px-2 group-hover:max-w-[250px] dark:group-hover:bg-iris-dark group-hover:bg-iris-light transition-all duration-400"
+        />
+      </li>
+      
+      <li class="group">
+        <div class="rounded-md p-2">
+          <a
+            href="./a-haskellian-blog.html"
+            class="w-fit dark:group-hover:text-iris-dark group-hover:text-iris-light transition-colors"
+          >
+            <h3 class="text-2xl">a haskellian blog</h3>
+            <p
+              class="italic text-accent-light dark:text-accent-dark my-1 group-hover:dark:text-muted-dark group-hover:text-muted-light transition-colors"
+            >
+              a purely functional...blog?
+            </p>
+            <p class="text-sm">2024-05-25</p>
+          </a>
+        </div>
+        <hr
+          class="max-w-[200px] border-0 h-1 dark:bg-accent-dark bg-accent-light rounded-lg px-2 group-hover:max-w-[250px] dark:group-hover:bg-iris-dark group-hover:bg-iris-light transition-all duration-400"
+        />
+      </li>
+      
+    </ul>
+  </section>
+</main>
+
+    <footer class="mt-14 md:mt-24 pb-12 font-light">
+      <hr
+        class="border-0 dark:bg-muted-dark bg-muted-light rounded-xl h-0.5 mb-4"
+      />
+      <p class="text-sm leading-relaxed">
+        &copy; 2024 Youwen Wu. Generated by
+        <a
+          href="https://jaspervdj.be/hakyll/"
+          class="external-link-muted"
+          target="__blank"
+          >Hakyll.</a
+        >
+        View the source
+        <a
+          href="https://github.com/couscousdude/blog"
+          class="external-link-muted"
+          target="__blank"
+          >on GitHub.</a
+        >
+      </p>
+      <p class="text-sm leading-relaxed mt-2">
+        Content freely available under
+        <a
+          class="external-link-muted"
+          target="__blank"
+          href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en"
+          ><span class="smallcaps">CC BY-NC-SA</span> 4.0</a
+        >
+        unless otherwise noted.
+      </p>
+    </footer>
+    <script defer src="./out/bundle.js"></script>
+  </body>
+</html>
