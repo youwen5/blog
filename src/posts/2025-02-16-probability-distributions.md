@@ -82,7 +82,7 @@ $$P(X \leq b) = \int_{- \infty}^{b}f(x)dx$$
 for all $b \in {\mathbb{R}}$, then $f$ is the **probability density
 function** (hereafter abbreviated p.d.f. or PDF) of $X$.
 
-We immediately see that the p.d.f. is analogous to the c.d.f. of the
+We immediately see that the p.d.f. is analogous to the p.m.f. of the
 discrete case.
 
 The probability that $X \in ( - \infty,b\rbrack$ is equal to the area

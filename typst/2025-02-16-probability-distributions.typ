@@ -92,7 +92,7 @@ Now as promised we introduce another major class of random variables.
   abbreviated p.d.f. or PDF) of $X$.
 ]
 
-We immediately see that the p.d.f. is analogous to the c.d.f. of the discrete case.
+We immediately see that the p.d.f. is analogous to the p.m.f. of the discrete case.
 
 The probability that $X in (-infinity, b]$ is equal to the area under the graph
 of $f$ from $-infinity$ to $b$.
