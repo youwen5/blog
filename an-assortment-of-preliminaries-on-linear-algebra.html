@@ -1,0 +1,604 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>An assortment of preliminaries on linear algebra | The Involution</title>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="and also a test for pandoc" />
+    
+    <meta name="author" content="Youwen Wu" />
+     
+    <meta name="keywords" content="linear algebra, algebra, math" />
+    
+
+    <meta property="og:site_name" content="The Involution" />
+    <meta property="og:title" content="An assortment of preliminaries on linear algebra" />
+    <meta property="og:url" content="https://blog.youwen.dev/an-assortment-of-preliminaries-on-linear-algebra.html" />
+    <meta property="og:description" content="and also a test for pandoc" />
+    
+    <meta property="og:image" content="https://blog.youwen.devhttps://wallpapercave.com/wp/wp12329537.png" />
+     
+    <meta property="og:type" content="article" />
+     
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:image" content="https://blog.youwen.devhttps://wallpapercave.com/wp/wp12329537.png" />
+    
+    <meta property="twitter:site" content="The Involution" />
+    <meta property="twitter:title" content="An assortment of preliminaries on linear algebra" />
+    <meta property="twitter:description" content="and also a test for pandoc" />
+    
+    <meta property="twitter:creator" content="@youwen" />
+    
+
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="canonical" href="https://blog.youwen.dev/an-assortment-of-preliminaries-on-linear-algebra.html" />
+
+    <link
+      rel="alternate"
+      href="./atom.xml"
+      title="The Involution"
+      type="application/atom+xml"
+    />
+    <link
+      rel="alternate"
+      href="./rss.xml"
+      title="The Involution"
+      type="application/rss+xml"
+    />
+    <link rel="stylesheet" href="./out/bundle.css" />
+    <link rel="stylesheet" href="./css/code.css" />
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/mml-chtml.js"
+    ></script>
+
+    <script>
+      if (
+        localStorage.theme === "dark" ||
+        (!("theme" in localStorage) &&
+          window.matchMedia("(prefers-color-scheme: dark)").matches)
+      ) {
+        document.documentElement.classList.add("dark")
+      } else {
+        document.documentElement.classList.remove("dark")
+      }
+      window.onload = () => {
+        var themeButton = document.getElementById("theme-toggle")
+        const theme = localStorage.getItem("theme")
+        if (theme === "light") {
+          themeButton.innerText = "theme: light"
+        } else if (theme === "dark") {
+          themeButton.innerText = "theme: dark"
+        } else {
+          themeButton.innerText = "theme: system"
+        }
+        var fontButton = document.getElementById("font-toggle")
+        const font = localStorage.getItem("font")
+        if (font && font === "serif") {
+          document.body.classList.remove("font-sans")
+          document.body.classList.remove("font-serif")
+          document.body.classList.add("font-serif")
+          fontButton.innerText = "serif"
+        }
+        if (font && font === "sans") {
+          document.body.classList.remove("font-sans")
+          document.body.classList.remove("font-serif")
+          document.body.classList.add("font-sans")
+          fontButton.innerText = "sans"
+        }
+        if (!font) {
+          document.body.classList.remove("font-sans")
+          document.body.classList.remove("font-serif")
+          fontButton.innerText = "serif"
+        }
+      }
+      MathJax = {
+        startup: {
+          ready: function () {
+            MathJax.startup.defaultReady()
+            MathJax.startup.promise.then(function () {
+              MathJax.mathml2svgPromise(document.body)
+            })
+          },
+        },
+      }
+    </script>
+  </head>
+  <body
+    class="container max-w-3xl mx-auto px-4 transition-colors duration-[2s]"
+  >
+    <header class="mt-14 md:mt-24 mb-14">
+      <div class="inline-flex items-center w-full">
+        <h1 class="text-4xl md:text-5xl font-serif font-medium">
+          <a
+            href="/"
+            class="dark:hover:text-muted-dark hover:text-muted-light transition-all duration-500 text-nowrap tracking-wide"
+            ><em>The Involution.</em></a
+          >
+        </h1>
+        <div
+          class="w-full flex-grow flex-shrink rounded-lg h-1 bg-muted-light dark:bg-muted-dark mx-4"
+        ></div>
+      </div>
+      <p class="mt-8 mb-3 px-1 italic font-light">
+        a web-log about computers and math and hacking.
+      </p>
+      <a class="text-sm text-iris-light dark:text-iris-dark hover:text-love-light dark:hover:text-love-dark" href="https://youwen.dev"
+        ><em>by </em>Youwen Wu</a
+      >
+      <span class="ml-2 font-serif">|</span>
+      <button
+        id="theme-toggle"
+        class="ml-2 text-sm hover:text-accent-light dark:hover:text-muted-dark"
+      ></button>
+      <span class="ml-2 font-serif">|</span>
+      <button
+        id="font-toggle"
+        class="ml-2 text-sm hover:text-accent-light dark:hover:text-muted-dark"
+      ></button>
+    </header>
+    <article>
+  <header>
+    <h1 class="text-4xl">
+      <a href="./an-assortment-of-preliminaries-on-linear-algebra.html">An assortment of preliminaries on linear algebra</a>
+    </h1>
+    <p
+      class="mb-1 mt-2 italic font-light text-lg text-accent-light dark:text-accent-dark"
+    >
+      and also a test for pandoc
+    </p>
+    <div class="mt-2">2025-02-15</div>
+    <div class="mt-1 text-sm">
+      
+    </div>
+  </header>
+  <main class="post mt-4"><p>This entire document was written entirely in <a href="https://typst.app/">Typst</a> and
+directly translated to this file by Pandoc. It serves as a proof of concept of
+a way to do static site generation from Typst files instead of Markdown.</p>
+<hr />
+<p>I figured I should write this stuff down before I forgot it.</p>
+<h1 id="basic-notions">Basic Notions</h1>
+<h2 id="vector-spaces">Vector spaces</h2>
+<p>Before we can understand vectors, we need to first discuss <em>vector
+spaces</em>. Thus far, you have likely encountered vectors primarily in
+physics classes, generally in the two-dimensional plane. You may
+conceptualize them as arrows in space. For vectors of size <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>&gt;</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">&gt; 3</annotation></semantics></math>, a hand
+waving argument is made that they are essentially just arrows in higher
+dimensional spaces.</p>
+<p>It is helpful to take a step back from this primitive geometric
+understanding of the vector. Let us build up a rigorous idea of vectors
+from first principles.</p>
+<h3 id="vector-axioms">Vector axioms</h3>
+<p>The so-called <em>axioms</em> of a <em>vector space</em> (which we’ll call the vector
+space <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>V</mi><annotation encoding="application/x-tex">V</annotation></semantics></math>) are as follows:</p>
+<ol>
+<li><p>Commutativity: <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>u</mi><mo>+</mo><mi>v</mi><mo>=</mo><mi>v</mi><mo>+</mo><mi>u</mi><mo>,</mo><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> </mtext><mspace width="0.333em"></mspace></mrow><mo>∀</mo><mi>u</mi><mo>,</mo><mi>v</mi><mo>∈</mo><mi>V</mi></mrow><annotation encoding="application/x-tex">u + v = v + u,\text{   }\forall u,v \in V</annotation></semantics></math></p></li>
+<li><p>Associativity:
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mo stretchy="true" form="prefix">(</mo><mi>u</mi><mo>+</mo><mi>v</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>+</mo><mi>w</mi><mo>=</mo><mi>u</mi><mo>+</mo><mrow><mo stretchy="true" form="prefix">(</mo><mi>v</mi><mo>+</mo><mi>w</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>,</mo><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> </mtext><mspace width="0.333em"></mspace></mrow><mo>∀</mo><mi>u</mi><mo>,</mo><mi>v</mi><mo>,</mo><mi>w</mi><mo>∈</mo><mi>V</mi></mrow><annotation encoding="application/x-tex">(u + v) + w = u + (v + w),\text{   }\forall u,v,w \in V</annotation></semantics></math></p></li>
+<li><p>Zero vector: <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mo>∃</mo><annotation encoding="application/x-tex">\exists</annotation></semantics></math> a special vector, denoted <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0</mn><annotation encoding="application/x-tex">0</annotation></semantics></math>, such that
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>v</mi><mo>+</mo><mn>0</mn><mo>=</mo><mi>v</mi><mo>,</mo><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> </mtext><mspace width="0.333em"></mspace></mrow><mo>∀</mo><mi>v</mi><mo>∈</mo><mi>V</mi></mrow><annotation encoding="application/x-tex">v + 0 = v,\text{   }\forall v \in V</annotation></semantics></math></p></li>
+<li><p>Additive inverse:
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><mi>v</mi><mo>∈</mo><mi>V</mi><mo>,</mo><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> </mtext><mspace width="0.333em"></mspace></mrow><mo>∃</mo><mi>w</mi><mo>∈</mo><mi>V</mi><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> such that </mtext><mspace width="0.333em"></mspace></mrow><mi>v</mi><mo>+</mo><mi>w</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\forall v \in V,\text{   }\exists w \in V\text{ such that }v + w = 0</annotation></semantics></math>.
+Such an additive inverse is generally denoted <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mi>v</mi></mrow><annotation encoding="application/x-tex">- v</annotation></semantics></math></p></li>
+<li><p>Multiplicative identity: <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>v</mi><mo>=</mo><mi>v</mi><mo>,</mo><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> </mtext><mspace width="0.333em"></mspace></mrow><mo>∀</mo><mi>v</mi><mo>∈</mo><mi>V</mi></mrow><annotation encoding="application/x-tex">1v = v,\text{   }\forall v \in V</annotation></semantics></math></p></li>
+<li><p>Multiplicative associativity:
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mo stretchy="true" form="prefix">(</mo><mi>α</mi><mi>β</mi><mo stretchy="true" form="postfix">)</mo></mrow><mi>v</mi><mo>=</mo><mi>α</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>β</mi><mi>v</mi><mo stretchy="true" form="postfix">)</mo></mrow><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> </mtext><mspace width="0.333em"></mspace></mrow><mo>∀</mo><mi>v</mi><mo>∈</mo><mi>V</mi><mo>,</mo><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> scalars </mtext><mspace width="0.333em"></mspace></mrow><mi>α</mi><mo>,</mo><mi>β</mi></mrow><annotation encoding="application/x-tex">(\alpha\beta)v = \alpha(\beta v)\text{   }\forall v \in V,\text{ scalars }\alpha,\beta</annotation></semantics></math></p></li>
+<li><p>Distributive property for vectors:
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>α</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>u</mi><mo>+</mo><mi>v</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mi>α</mi><mi>u</mi><mo>+</mo><mi>α</mi><mi>v</mi><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> </mtext><mspace width="0.333em"></mspace></mrow><mo>∀</mo><mi>u</mi><mo>,</mo><mi>v</mi><mo>∈</mo><mi>V</mi><mo>,</mo><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> scalars </mtext><mspace width="0.333em"></mspace></mrow><mi>α</mi></mrow><annotation encoding="application/x-tex">\alpha(u + v) = \alpha u + \alpha v\text{   }\forall u,v \in V,\text{ scalars }\alpha</annotation></semantics></math></p></li>
+<li><p>Distributive property for scalars:
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mo stretchy="true" form="prefix">(</mo><mi>α</mi><mo>+</mo><mi>β</mi><mo stretchy="true" form="postfix">)</mo></mrow><mi>v</mi><mo>=</mo><mi>α</mi><mi>v</mi><mo>+</mo><mi>β</mi><mi>v</mi><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> </mtext><mspace width="0.333em"></mspace></mrow><mo>∀</mo><mi>v</mi><mo>∈</mo><mi>V</mi><mo>,</mo><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> scalars </mtext><mspace width="0.333em"></mspace></mrow><mi>α</mi><mo>,</mo><mi>β</mi></mrow><annotation encoding="application/x-tex">(\alpha + \beta)v = \alpha v + \beta v\text{   }\forall v \in V,\text{  scalars }\alpha,\beta</annotation></semantics></math></p></li>
+</ol>
+<p>It is easy to show that the zero vector <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0</mn><annotation encoding="application/x-tex">0</annotation></semantics></math> and the additive inverse
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mi>v</mi></mrow><annotation encoding="application/x-tex">- v</annotation></semantics></math> are <em>unique</em>. We leave the proof of this fact as an exercise.</p>
+<p>These may seem difficult to memorize, but they are essentially the same
+familiar algebraic properties of numbers you know from high school. The
+important thing to remember is which operations are valid for what
+objects. For example, you cannot add a vector and scalar, as it does not
+make sense.</p>
+<p><em>Remark</em>. For those of you versed in computer science, you may recognize
+this as essentially saying that you must ensure your operations are
+<em>type-safe</em>. Adding a vector and scalar is not just “wrong” in the same
+sense that <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>+</mo><mn>1</mn><mo>=</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">1 + 1 = 3</annotation></semantics></math> is wrong, it is an <em>invalid question</em> entirely
+because vectors and scalars and different types of mathematical objects.
+See [@chen2024digression] for more.</p>
+<h3 id="vectors-big-and-small">Vectors big and small</h3>
+<p>In order to begin your descent into what mathematicians colloquially
+recognize as <em>abstract vapid nonsense</em>, let’s discuss which fields
+constitute a vector space. We have the familiar field of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ℝ</mi><annotation encoding="application/x-tex">\mathbb{R}</annotation></semantics></math>
+where all scalars are real numbers, with corresponding vector spaces
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>ℝ</mi><mi>n</mi></msup><annotation encoding="application/x-tex">{\mathbb{R}}^{n}</annotation></semantics></math>, where <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math> is the length of the vector. We generally
+discuss 2D or 3D vectors, corresponding to vectors of length 2 or 3; in
+our case, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>ℝ</mi><mn>2</mn></msup><annotation encoding="application/x-tex">{\mathbb{R}}^{2}</annotation></semantics></math> and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>ℝ</mi><mn>3</mn></msup><annotation encoding="application/x-tex">{\mathbb{R}}^{3}</annotation></semantics></math>.</p>
+<p>However, vectors in <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>ℝ</mi><mi>n</mi></msup><annotation encoding="application/x-tex">{\mathbb{R}}^{n}</annotation></semantics></math> can really be of any length.
+Vectors can be viewed as arbitrary length lists of numbers (for the
+computer science folk: think C++ <code>std::vector</code>).</p>
+<p><em>Example</em>. <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mo stretchy="true" form="prefix">(</mo><mtable><mtr><mtd columnalign="center" style="text-align: center"><mn>1</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mn>2</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mn>3</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mn>4</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mn>5</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mn>6</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mn>7</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mn>8</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mn>9</mn></mtd></mtr></mtable><mo stretchy="true" form="postfix">)</mo></mrow><mo>∈</mo><msup><mi>ℝ</mi><mn>9</mn></msup></mrow><annotation encoding="application/x-tex">\begin{pmatrix}
+1 \\
+2 \\
+3 \\
+4 \\
+5 \\
+6 \\
+7 \\
+8 \\
+9
+\end{pmatrix} \in {\mathbb{R}}^{9}</annotation></semantics></math></p>
+<p>Keep in mind that vectors need not be in <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>ℝ</mi><mi>n</mi></msup><annotation encoding="application/x-tex">{\mathbb{R}}^{n}</annotation></semantics></math> at all.
+Recall that a vector space need only satisfy the aforementioned <em>axioms
+of a vector space</em>.</p>
+<p><em>Example</em>. The vector space <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>ℂ</mi><mi>n</mi></msup><annotation encoding="application/x-tex">{\mathbb{C}}^{n}</annotation></semantics></math> is similar to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>ℝ</mi><mi>n</mi></msup><annotation encoding="application/x-tex">{\mathbb{R}}^{n}</annotation></semantics></math>, except it includes complex numbers. All complex
+vector spaces are real vector spaces (as you can simply restrict them to
+only use the real numbers), but not the other way around.</p>
+<p>From now on, let us refer to vector spaces <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>ℝ</mi><mi>n</mi></msup><annotation encoding="application/x-tex">{\mathbb{R}}^{n}</annotation></semantics></math> and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>ℂ</mi><mi>n</mi></msup><annotation encoding="application/x-tex">{\mathbb{C}}^{n}</annotation></semantics></math> as <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>𝔽</mi><mi>n</mi></msup><annotation encoding="application/x-tex">{\mathbb{F}}^{n}</annotation></semantics></math>.</p>
+<p>In general, we can have a vector space where the scalars are in an
+arbitrary field, as long as the axioms are satisfied.</p>
+<p><em>Example</em>. The vector space of all polynomials of at most degree 3, or
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>ℙ</mi><mn>3</mn></msup><annotation encoding="application/x-tex">{\mathbb{P}}^{3}</annotation></semantics></math>. It is not yet clear what this vector may look like.
+We shall return to this example once we discuss <em>basis</em>.</p>
+<h2 id="vector-addition-multiplication">Vector addition. Multiplication</h2>
+<p>Vector addition, represented by <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>+</mi><annotation encoding="application/x-tex">+</annotation></semantics></math> can be done entrywise.</p>
+<p><em>Example.</em></p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mo stretchy="true" form="prefix">(</mo><mtable><mtr><mtd columnalign="center" style="text-align: center"><mn>1</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mn>2</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mn>3</mn></mtd></mtr></mtable><mo stretchy="true" form="postfix">)</mo></mrow><mo>+</mo><mrow><mo stretchy="true" form="prefix">(</mo><mtable><mtr><mtd columnalign="center" style="text-align: center"><mn>4</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mn>5</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mn>6</mn></mtd></mtr></mtable><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mrow><mo stretchy="true" form="prefix">(</mo><mtable><mtr><mtd columnalign="center" style="text-align: center"><mn>1</mn><mo>+</mo><mn>4</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mn>2</mn><mo>+</mo><mn>5</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mn>3</mn><mo>+</mo><mn>6</mn></mtd></mtr></mtable><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mrow><mo stretchy="true" form="prefix">(</mo><mtable><mtr><mtd columnalign="center" style="text-align: center"><mn>5</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mn>7</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mn>9</mn></mtd></mtr></mtable><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\begin{pmatrix}
+1 \\
+2 \\
+3
+\end{pmatrix} + \begin{pmatrix}
+4 \\
+5 \\
+6
+\end{pmatrix} = \begin{pmatrix}
+1 + 4 \\
+2 + 5 \\
+3 + 6
+\end{pmatrix} = \begin{pmatrix}
+5 \\
+7 \\
+9
+\end{pmatrix}</annotation></semantics></math> <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mo stretchy="true" form="prefix">(</mo><mtable><mtr><mtd columnalign="center" style="text-align: center"><mn>1</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mn>2</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mn>3</mn></mtd></mtr></mtable><mo stretchy="true" form="postfix">)</mo></mrow><mo>⋅</mo><mrow><mo stretchy="true" form="prefix">(</mo><mtable><mtr><mtd columnalign="center" style="text-align: center"><mn>4</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mn>5</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mn>6</mn></mtd></mtr></mtable><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mrow><mo stretchy="true" form="prefix">(</mo><mtable><mtr><mtd columnalign="center" style="text-align: center"><mn>1</mn><mo>⋅</mo><mn>4</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mn>2</mn><mo>⋅</mo><mn>5</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mn>3</mn><mo>⋅</mo><mn>6</mn></mtd></mtr></mtable><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mrow><mo stretchy="true" form="prefix">(</mo><mtable><mtr><mtd columnalign="center" style="text-align: center"><mn>4</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mn>10</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mn>18</mn></mtd></mtr></mtable><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\begin{pmatrix}
+1 \\
+2 \\
+3
+\end{pmatrix} \cdot \begin{pmatrix}
+4 \\
+5 \\
+6
+\end{pmatrix} = \begin{pmatrix}
+1 \cdot 4 \\
+2 \cdot 5 \\
+3 \cdot 6
+\end{pmatrix} = \begin{pmatrix}
+4 \\
+10 \\
+18
+\end{pmatrix}</annotation></semantics></math></p>
+<p>This is simple enough to understand. Again, the difficulty is simply
+ensuring that you always perform operations with the correct <em>types</em>.
+For example, once we introduce matrices, it doesn’t make sense to
+multiply or add vectors and matrices in this fashion.</p>
+<h2 id="vector-scalar-multiplication">Vector-scalar multiplication</h2>
+<p>Multiplying a vector by a scalar simply results in each entry of the
+vector being multiplied by the scalar.</p>
+<p><em>Example</em>.</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>β</mi><mrow><mo stretchy="true" form="prefix">(</mo><mtable><mtr><mtd columnalign="center" style="text-align: center"><mi>a</mi></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mi>b</mi></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mi>c</mi></mtd></mtr></mtable><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mrow><mo stretchy="true" form="prefix">(</mo><mtable><mtr><mtd columnalign="center" style="text-align: center"><mi>β</mi><mo>⋅</mo><mi>a</mi></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mi>β</mi><mo>⋅</mo><mi>b</mi></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mi>β</mi><mo>⋅</mo><mi>c</mi></mtd></mtr></mtable><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\beta\begin{pmatrix}
+a \\
+b \\
+c
+\end{pmatrix} = \begin{pmatrix}
+\beta \cdot a \\
+\beta \cdot b \\
+\beta \cdot c
+\end{pmatrix}</annotation></semantics></math></p>
+<h2 id="linear-combinations">Linear combinations</h2>
+<p>Given vector spaces <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>V</mi><annotation encoding="application/x-tex">V</annotation></semantics></math> and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>W</mi><annotation encoding="application/x-tex">W</annotation></semantics></math> and vectors <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>v</mi><mo>∈</mo><mi>V</mi></mrow><annotation encoding="application/x-tex">v \in V</annotation></semantics></math> and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>w</mi><mo>∈</mo><mi>W</mi></mrow><annotation encoding="application/x-tex">w \in W</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>v</mi><mo>+</mo><mi>w</mi></mrow><annotation encoding="application/x-tex">v + w</annotation></semantics></math> is the <em>linear combination</em> of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>v</mi><annotation encoding="application/x-tex">v</annotation></semantics></math> and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>w</mi><annotation encoding="application/x-tex">w</annotation></semantics></math>.</p>
+<h3 id="spanning-systems">Spanning systems</h3>
+<p>We say that a set of vectors <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>v</mi><mn>1</mn></msub><mo>,</mo><msub><mi>v</mi><mn>2</mn></msub><mo>,</mo><mi>…</mi><mo>,</mo><msub><mi>v</mi><mi>n</mi></msub><mo>∈</mo><mi>V</mi></mrow><annotation encoding="application/x-tex">v_{1},v_{2},\ldots,v_{n} \in V</annotation></semantics></math> <em>span</em> <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>V</mi><annotation encoding="application/x-tex">V</annotation></semantics></math>
+if the linear combination of the vectors can represent any arbitrary
+vector <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>v</mi><mo>∈</mo><mi>V</mi></mrow><annotation encoding="application/x-tex">v \in V</annotation></semantics></math>.</p>
+<p>Precisely, given scalars <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>α</mi><mn>1</mn></msub><mo>,</mo><msub><mi>α</mi><mn>2</mn></msub><mo>,</mo><mi>…</mi><mo>,</mo><msub><mi>α</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">\alpha_{1},\alpha_{2},\ldots,\alpha_{n}</annotation></semantics></math>,</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>α</mi><mn>1</mn></msub><msub><mi>v</mi><mn>1</mn></msub><mo>+</mo><msub><mi>α</mi><mn>2</mn></msub><msub><mi>v</mi><mn>2</mn></msub><mo>+</mo><mi>…</mi><mo>+</mo><msub><mi>α</mi><mi>n</mi></msub><msub><mi>v</mi><mi>n</mi></msub><mo>=</mo><mi>v</mi><mo>,</mo><mo>∀</mo><mi>v</mi><mo>∈</mo><mi>V</mi></mrow><annotation encoding="application/x-tex">\alpha_{1}v_{1} + \alpha_{2}v_{2} + \ldots + \alpha_{n}v_{n} = v,\forall v \in V</annotation></semantics></math></p>
+<p>Note that any scalar <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>α</mi><mi>k</mi></msub><annotation encoding="application/x-tex">\alpha_{k}</annotation></semantics></math> could be 0. Therefore, it is possible
+for a subset of a spanning system to also be a spanning system. The
+proof of this fact is left as an exercise.</p>
+<h3 id="intuition-for-linear-independence-and-dependence">Intuition for linear independence and dependence</h3>
+<p>We say that <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>v</mi><annotation encoding="application/x-tex">v</annotation></semantics></math> and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>w</mi><annotation encoding="application/x-tex">w</annotation></semantics></math> are linearly independent if <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>v</mi><annotation encoding="application/x-tex">v</annotation></semantics></math> cannot be
+represented by the scaling of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>w</mi><annotation encoding="application/x-tex">w</annotation></semantics></math>, and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>w</mi><annotation encoding="application/x-tex">w</annotation></semantics></math> cannot be represented by the
+scaling of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>v</mi><annotation encoding="application/x-tex">v</annotation></semantics></math>. Otherwise, they are <em>linearly dependent</em>.</p>
+<p>You may intuitively visualize linear dependence in the 2D plane as two
+vectors both pointing in the same direction. Clearly, scaling one vector
+will allow us to reach the other vector. Linear independence is
+therefore two vectors pointing in different directions.</p>
+<p>Of course, this definition applies to vectors in any <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>𝔽</mi><mi>n</mi></msup><annotation encoding="application/x-tex">{\mathbb{F}}^{n}</annotation></semantics></math>.</p>
+<h3 id="formal-definition-of-linear-dependence-and-independence">Formal definition of linear dependence and independence</h3>
+<p>Let us formally define linear independence for arbitrary vectors in
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>𝔽</mi><mi>n</mi></msup><annotation encoding="application/x-tex">{\mathbb{F}}^{n}</annotation></semantics></math>. Given a set of vectors</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>v</mi><mn>1</mn></msub><mo>,</mo><msub><mi>v</mi><mn>2</mn></msub><mo>,</mo><mi>…</mi><mo>,</mo><msub><mi>v</mi><mi>n</mi></msub><mo>∈</mo><mi>V</mi></mrow><annotation encoding="application/x-tex">v_{1},v_{2},\ldots,v_{n} \in V</annotation></semantics></math></p>
+<p>we say they are linearly independent iff. the equation</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>α</mi><mn>1</mn></msub><msub><mi>v</mi><mn>1</mn></msub><mo>+</mo><msub><mi>α</mi><mn>2</mn></msub><msub><mi>v</mi><mn>2</mn></msub><mo>+</mo><mi>…</mi><mo>+</mo><msub><mi>α</mi><mi>n</mi></msub><msub><mi>v</mi><mi>n</mi></msub><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\alpha_{1}v_{1} + \alpha_{2}v_{2} + \ldots + \alpha_{n}v_{n} = 0</annotation></semantics></math></p>
+<p>has only a unique set of solutions
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>α</mi><mn>1</mn></msub><mo>,</mo><msub><mi>α</mi><mn>2</mn></msub><mo>,</mo><mi>…</mi><mo>,</mo><msub><mi>α</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">\alpha_{1},\alpha_{2},\ldots,\alpha_{n}</annotation></semantics></math> such that all <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>α</mi><mi>n</mi></msub><annotation encoding="application/x-tex">\alpha_{n}</annotation></semantics></math> are
+zero.</p>
+<p>Equivalently,</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mo stretchy="true" form="prefix">|</mo><msub><mi>α</mi><mn>1</mn></msub><mo stretchy="true" form="postfix">|</mo></mrow><mo>+</mo><mrow><mo stretchy="true" form="prefix">|</mo><msub><mi>α</mi><mn>2</mn></msub><mo stretchy="true" form="postfix">|</mo></mrow><mo>+</mo><mi>…</mi><mo>+</mo><mrow><mo stretchy="true" form="prefix">|</mo><msub><mi>α</mi><mi>n</mi></msub><mo stretchy="true" form="postfix">|</mo></mrow><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\left| \alpha_{1} \right| + \left| \alpha_{2} \right| + \ldots + \left| \alpha_{n} \right| = 0</annotation></semantics></math></p>
+<p>More precisely,</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>k</mi></munderover><mrow><mo stretchy="true" form="prefix">|</mo><msub><mi>α</mi><mi>i</mi></msub><mo stretchy="true" form="postfix">|</mo></mrow><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\sum_{i = 1}^{k}\left| \alpha_{i} \right| = 0</annotation></semantics></math></p>
+<p>Therefore, a set of vectors <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>v</mi><mn>1</mn></msub><mo>,</mo><msub><mi>v</mi><mn>2</mn></msub><mo>,</mo><mi>…</mi><mo>,</mo><msub><mi>v</mi><mi>m</mi></msub></mrow><annotation encoding="application/x-tex">v_{1},v_{2},\ldots,v_{m}</annotation></semantics></math> is linearly
+dependent if the opposite is true, that is there exists solution
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>α</mi><mn>1</mn></msub><mo>,</mo><msub><mi>α</mi><mn>2</mn></msub><mo>,</mo><mi>…</mi><mo>,</mo><msub><mi>α</mi><mi>m</mi></msub></mrow><annotation encoding="application/x-tex">\alpha_{1},\alpha_{2},\ldots,\alpha_{m}</annotation></semantics></math> to the equation</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>α</mi><mn>1</mn></msub><msub><mi>v</mi><mn>1</mn></msub><mo>+</mo><msub><mi>α</mi><mn>2</mn></msub><msub><mi>v</mi><mn>2</mn></msub><mo>+</mo><mi>…</mi><mo>+</mo><msub><mi>α</mi><mi>m</mi></msub><msub><mi>v</mi><mi>m</mi></msub><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\alpha_{1}v_{1} + \alpha_{2}v_{2} + \ldots + \alpha_{m}v_{m} = 0</annotation></semantics></math></p>
+<p>such that</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>k</mi></munderover><mrow><mo stretchy="true" form="prefix">|</mo><msub><mi>α</mi><mi>i</mi></msub><mo stretchy="true" form="postfix">|</mo></mrow><mo>≠</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\sum_{i = 1}^{k}\left| \alpha_{i} \right| \neq 0</annotation></semantics></math></p>
+<h3 id="basis">Basis</h3>
+<p>We say a system of vectors <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>v</mi><mn>1</mn></msub><mo>,</mo><msub><mi>v</mi><mn>2</mn></msub><mo>,</mo><mi>…</mi><mo>,</mo><msub><mi>v</mi><mi>n</mi></msub><mo>∈</mo><mi>V</mi></mrow><annotation encoding="application/x-tex">v_{1},v_{2},\ldots,v_{n} \in V</annotation></semantics></math> is a <em>basis</em>
+in <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>V</mi><annotation encoding="application/x-tex">V</annotation></semantics></math> if the system is both linearly independent and spanning. That is,
+the system must be able to represent any vector in <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>V</mi><annotation encoding="application/x-tex">V</annotation></semantics></math> as well as
+satisfy our requirements for linear independence.</p>
+<p>Equivalently, we may say that a system of vectors in <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>V</mi><annotation encoding="application/x-tex">V</annotation></semantics></math> is a basis in
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>V</mi><annotation encoding="application/x-tex">V</annotation></semantics></math> if any vector <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>v</mi><mo>∈</mo><mi>V</mi></mrow><annotation encoding="application/x-tex">v \in V</annotation></semantics></math> admits a <em>unique representation</em> as a linear
+combination of vectors in the system. This is equivalent to our previous
+statement, that the system must be spanning and linearly independent.</p>
+<h3 id="standard-basis">Standard basis</h3>
+<p>We may define a <em>standard basis</em> for a vector space. By convention, the
+standard basis in <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>ℝ</mi><mn>2</mn></msup><annotation encoding="application/x-tex">{\mathbb{R}}^{2}</annotation></semantics></math> is</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mo stretchy="true" form="prefix">(</mo><mtable><mtr><mtd columnalign="center" style="text-align: center"><mn>1</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd></mtr></mtable><mo stretchy="true" form="postfix">)</mo></mrow><mrow><mo stretchy="true" form="prefix">(</mo><mtable><mtr><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mn>1</mn></mtd></mtr></mtable><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\begin{pmatrix}
+1 \\
+0
+\end{pmatrix}\begin{pmatrix}
+0 \\
+1
+\end{pmatrix}</annotation></semantics></math></p>
+<p>Verify that the above is in fact a basis (that is, linearly independent
+and generating).</p>
+<p>Recalling the definition of the basis, we can represent any vector in
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>ℝ</mi><mn>2</mn></msup><annotation encoding="application/x-tex">{\mathbb{R}}^{2}</annotation></semantics></math> as the linear combination of the standard basis.</p>
+<p>Therefore, for any arbitrary vector <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>v</mi><mo>∈</mo><msup><mi>ℝ</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">v \in {\mathbb{R}}^{2}</annotation></semantics></math>, we can
+represent it as</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>v</mi><mo>=</mo><msub><mi>α</mi><mn>1</mn></msub><mrow><mo stretchy="true" form="prefix">(</mo><mtable><mtr><mtd columnalign="center" style="text-align: center"><mn>1</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd></mtr></mtable><mo stretchy="true" form="postfix">)</mo></mrow><mo>+</mo><msub><mi>α</mi><mn>2</mn></msub><mrow><mo stretchy="true" form="prefix">(</mo><mtable><mtr><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mn>1</mn></mtd></mtr></mtable><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">v = \alpha_{1}\begin{pmatrix}
+1 \\
+0
+\end{pmatrix} + \alpha_{2}\begin{pmatrix}
+0 \\
+1
+\end{pmatrix}</annotation></semantics></math></p>
+<p>Let us call <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>α</mi><mn>1</mn></msub><annotation encoding="application/x-tex">\alpha_{1}</annotation></semantics></math> and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>α</mi><mn>2</mn></msub><annotation encoding="application/x-tex">\alpha_{2}</annotation></semantics></math> the <em>coordinates</em> of the
+vector. Then, we can write <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>v</mi><annotation encoding="application/x-tex">v</annotation></semantics></math> as</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>v</mi><mo>=</mo><mrow><mo stretchy="true" form="prefix">(</mo><mtable><mtr><mtd columnalign="center" style="text-align: center"><msub><mi>α</mi><mn>1</mn></msub></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><msub><mi>α</mi><mn>2</mn></msub></mtd></mtr></mtable><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">v = \begin{pmatrix}
+\alpha_{1} \\
+\alpha_{2}
+\end{pmatrix}</annotation></semantics></math></p>
+<p>For example, the vector</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="true" form="prefix">(</mo><mtable><mtr><mtd columnalign="center" style="text-align: center"><mn>1</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mn>2</mn></mtd></mtr></mtable><mo stretchy="true" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\begin{pmatrix}
+1 \\
+2
+\end{pmatrix}</annotation></semantics></math></p>
+<p>represents</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>⋅</mo><mrow><mo stretchy="true" form="prefix">(</mo><mtable><mtr><mtd columnalign="center" style="text-align: center"><mn>1</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd></mtr></mtable><mo stretchy="true" form="postfix">)</mo></mrow><mo>+</mo><mn>2</mn><mo>⋅</mo><mrow><mo stretchy="true" form="prefix">(</mo><mtable><mtr><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mn>1</mn></mtd></mtr></mtable><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">1 \cdot \begin{pmatrix}
+1 \\
+0
+\end{pmatrix} + 2 \cdot \begin{pmatrix}
+0 \\
+1
+\end{pmatrix}</annotation></semantics></math></p>
+<p>Verify that this aligns with your previous intuition of vectors.</p>
+<p>You may recognize the standard basis in <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>ℝ</mi><mn>2</mn></msup><annotation encoding="application/x-tex">{\mathbb{R}}^{2}</annotation></semantics></math> as the
+familiar unit vectors</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover><mi>i</mi><mo accent="true">̂</mo></mover><mo>,</mo><mover><mi>j</mi><mo accent="true">̂</mo></mover></mrow><annotation encoding="application/x-tex">\hat{i},\hat{j}</annotation></semantics></math></p>
+<p>This aligns with the fact that</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mo stretchy="true" form="prefix">(</mo><mtable><mtr><mtd columnalign="center" style="text-align: center"><mi>α</mi></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mi>β</mi></mtd></mtr></mtable><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mi>α</mi><mover><mi>i</mi><mo accent="true">̂</mo></mover><mo>+</mo><mi>β</mi><mover><mi>j</mi><mo accent="true">̂</mo></mover></mrow><annotation encoding="application/x-tex">\begin{pmatrix}
+\alpha \\
+\beta
+\end{pmatrix} = \alpha\hat{i} + \beta\hat{j}</annotation></semantics></math></p>
+<p>However, we may define a standard basis in any arbitrary vector space.
+So, let</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>e</mi><mn>1</mn></msub><mo>,</mo><msub><mi>e</mi><mn>2</mn></msub><mo>,</mo><mi>…</mi><mo>,</mo><msub><mi>e</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">e_{1},e_{2},\ldots,e_{n}</annotation></semantics></math></p>
+<p>be a standard basis in <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>𝔽</mi><mi>n</mi></msup><annotation encoding="application/x-tex">{\mathbb{F}}^{n}</annotation></semantics></math>. Then, the coordinates
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>α</mi><mn>1</mn></msub><mo>,</mo><msub><mi>α</mi><mn>2</mn></msub><mo>,</mo><mi>…</mi><mo>,</mo><msub><mi>α</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">\alpha_{1},\alpha_{2},\ldots,\alpha_{n}</annotation></semantics></math> of a vector
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>v</mi><mo>∈</mo><msup><mi>𝔽</mi><mi>n</mi></msup></mrow><annotation encoding="application/x-tex">v \in {\mathbb{F}}^{n}</annotation></semantics></math> represent the following</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mo stretchy="true" form="prefix">(</mo><mtable><mtr><mtd columnalign="center" style="text-align: center"><msub><mi>α</mi><mn>1</mn></msub></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><msub><mi>α</mi><mn>2</mn></msub></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mi>⋮</mi></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><msub><mi>α</mi><mi>n</mi></msub></mtd></mtr></mtable><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><msub><mi>α</mi><mn>1</mn></msub><msub><mi>e</mi><mn>1</mn></msub><mo>+</mo><msub><mi>α</mi><mn>2</mn></msub><mo>+</mo><msub><mi>e</mi><mn>2</mn></msub><mo>+</mo><msub><mi>α</mi><mi>n</mi></msub><msub><mi>e</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">\begin{pmatrix}
+\alpha_{1} \\
+\alpha_{2} \\
+ \vdots \\
+\alpha_{n}
+\end{pmatrix} = \alpha_{1}e_{1} + \alpha_{2} + e_{2} + \alpha_{n}e_{n}</annotation></semantics></math></p>
+<p>Using our new notation, the standard basis in <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>ℝ</mi><mn>2</mn></msup><annotation encoding="application/x-tex">{\mathbb{R}}^{2}</annotation></semantics></math> is</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>e</mi><mn>1</mn></msub><mo>=</mo><mrow><mo stretchy="true" form="prefix">(</mo><mtable><mtr><mtd columnalign="center" style="text-align: center"><mn>1</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd></mtr></mtable><mo stretchy="true" form="postfix">)</mo></mrow><mo>,</mo><msub><mi>e</mi><mn>2</mn></msub><mo>=</mo><mrow><mo stretchy="true" form="prefix">(</mo><mtable><mtr><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mn>1</mn></mtd></mtr></mtable><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">e_{1} = \begin{pmatrix}
+1 \\
+0
+\end{pmatrix},e_{2} = \begin{pmatrix}
+0 \\
+1
+\end{pmatrix}</annotation></semantics></math></p>
+<h2 id="matrices">Matrices</h2>
+<p>Before discussing any properties of matrices, let’s simply reiterate
+what we learned in class about their notation. We say a matrix with rows
+of length <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>m</mi><annotation encoding="application/x-tex">m</annotation></semantics></math>, and columns of size <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math> (in less precise terms, a matrix
+with length <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>m</mi><annotation encoding="application/x-tex">m</annotation></semantics></math> and height <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>) is a <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo>×</mo><mi>n</mi></mrow><annotation encoding="application/x-tex">m \times n</annotation></semantics></math> matrix.</p>
+<p>Given a matrix</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>=</mo><mrow><mo stretchy="true" form="prefix">(</mo><mtable><mtr><mtd columnalign="center" style="text-align: center"><mn>1</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>2</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>3</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mn>4</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>5</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>6</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mn>7</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>8</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>9</mn></mtd></mtr></mtable><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">A = \begin{pmatrix}
+1 &amp; 2 &amp; 3 \\
+4 &amp; 5 &amp; 6 \\
+7 &amp; 8 &amp; 9
+\end{pmatrix}</annotation></semantics></math></p>
+<p>we refer to the entry in row <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>j</mi><annotation encoding="application/x-tex">j</annotation></semantics></math> and column <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math> as <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>A</mi><mrow><mi>j</mi><mo>,</mo><mi>k</mi></mrow></msub><annotation encoding="application/x-tex">A_{j,k}</annotation></semantics></math> .</p>
+<h3 id="matrix-transpose">Matrix transpose</h3>
+<p>A formalism that is useful later on is called the <em>transpose</em>, and we
+obtain it from a matrix <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math> by switching all the rows and columns. More
+precisely, each row becomes a column instead. We use the notation
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>A</mi><mi>T</mi></msup><annotation encoding="application/x-tex">A^{T}</annotation></semantics></math> to represent the transpose of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math>.</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mrow><mo stretchy="true" form="prefix">(</mo><mtable><mtr><mtd columnalign="center" style="text-align: center"><mn>1</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>2</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>3</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mn>4</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>5</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>6</mn></mtd></mtr></mtable><mo stretchy="true" form="postfix">)</mo></mrow><mi>T</mi></msup><mo>=</mo><mrow><mo stretchy="true" form="prefix">(</mo><mtable><mtr><mtd columnalign="center" style="text-align: center"><mn>1</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>4</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mn>2</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>5</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mn>3</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>6</mn></mtd></mtr></mtable><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\begin{pmatrix}
+1 &amp; 2 &amp; 3 \\
+4 &amp; 5 &amp; 6
+\end{pmatrix}^{T} = \begin{pmatrix}
+1 &amp; 4 \\
+2 &amp; 5 \\
+3 &amp; 6
+\end{pmatrix}</annotation></semantics></math></p>
+<p>Formally, we can say <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow><mo stretchy="true" form="prefix">(</mo><msup><mi>A</mi><mi>T</mi></msup><mo stretchy="true" form="postfix">)</mo></mrow><mrow><mi>j</mi><mo>,</mo><mi>k</mi></mrow></msub><mo>=</mo><msub><mi>A</mi><mrow><mi>k</mi><mo>,</mo><mi>j</mi></mrow></msub></mrow><annotation encoding="application/x-tex">\left( A^{T} \right)_{j,k} = A_{k,j}</annotation></semantics></math></p>
+<h2 id="linear-transformations">Linear transformations</h2>
+<p>A linear transformation <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi><mo>:</mo><mi>V</mi><mo>→</mo><mi>W</mi></mrow><annotation encoding="application/x-tex">T:V \rightarrow W</annotation></semantics></math> is a mapping between two
+vector spaces <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>V</mi><mo>→</mo><mi>W</mi></mrow><annotation encoding="application/x-tex">V \rightarrow W</annotation></semantics></math>, such that the following axioms are
+satisfied:</p>
+<ol>
+<li><p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>v</mi><mo>+</mo><mi>w</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mi>T</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>v</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>+</mo><mi>T</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>w</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>,</mo><mo>∀</mo><mi>v</mi><mo>∈</mo><mi>V</mi><mo>,</mo><mo>∀</mo><mi>w</mi><mo>∈</mo><mi>W</mi></mrow><annotation encoding="application/x-tex">T(v + w) = T(v) + T(w),\forall v \in V,\forall w \in W</annotation></semantics></math></p></li>
+<li><p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>α</mi><mi>v</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>+</mo><mi>T</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>β</mi><mi>w</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mi>α</mi><mi>T</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>v</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>+</mo><mi>β</mi><mi>T</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>w</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>,</mo><mo>∀</mo><mi>v</mi><mo>∈</mo><mi>V</mi><mo>,</mo><mo>∀</mo><mi>w</mi><mo>∈</mo><mi>W</mi></mrow><annotation encoding="application/x-tex">T(\alpha v) + T(\beta w) = \alpha T(v) + \beta T(w),\forall v \in V,\forall w \in W</annotation></semantics></math>,
+for all scalars <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>α</mi><mo>,</mo><mi>β</mi></mrow><annotation encoding="application/x-tex">\alpha,\beta</annotation></semantics></math></p></li>
+</ol>
+<p><em>Definition</em>. <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>T</mi><annotation encoding="application/x-tex">T</annotation></semantics></math> is a linear transformation iff.</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>α</mi><mi>v</mi><mo>+</mo><mi>β</mi><mi>w</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mi>α</mi><mi>T</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>v</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>+</mo><mi>β</mi><mi>T</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>w</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">T(\alpha v + \beta w) = \alpha T(v) + \beta T(w)</annotation></semantics></math></p>
+<p><em>Abuse of notation</em>. From now on, we may elide the parentheses and say
+that <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>v</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mi>T</mi><mi>v</mi><mo>,</mo><mo>∀</mo><mi>v</mi><mo>∈</mo><mi>V</mi></mrow><annotation encoding="application/x-tex">T(v) = Tv,\forall v \in V</annotation></semantics></math></p>
+<p><em>Remark</em>. A phrase that you may commonly hear is that linear
+transformations preserve <em>linearity</em>. Essentially, straight lines remain
+straight, parallel lines remain parallel, and the origin remains fixed
+at 0. Take a moment to think about why this is true (at least, in lower
+dimensional spaces you can visualize).</p>
+<p><em>Examples</em>.</p>
+<ol>
+<li><p>Rotation for <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>V</mi><mo>=</mo><mi>W</mi><mo>=</mo><msup><mi>ℝ</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">V = W = {\mathbb{R}}^{2}</annotation></semantics></math> (i.e. rotation in 2
+dimensions). Given <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>v</mi><mo>,</mo><mi>w</mi><mo>∈</mo><msup><mi>ℝ</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">v,w \in {\mathbb{R}}^{2}</annotation></semantics></math>, and their linear
+combination <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>v</mi><mo>+</mo><mi>w</mi></mrow><annotation encoding="application/x-tex">v + w</annotation></semantics></math>, a rotation of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>γ</mi><annotation encoding="application/x-tex">\gamma</annotation></semantics></math> radians of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>v</mi><mo>+</mo><mi>w</mi></mrow><annotation encoding="application/x-tex">v + w</annotation></semantics></math> is
+equivalent to first rotating <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>v</mi><annotation encoding="application/x-tex">v</annotation></semantics></math> and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>w</mi><annotation encoding="application/x-tex">w</annotation></semantics></math> individually by <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>γ</mi><annotation encoding="application/x-tex">\gamma</annotation></semantics></math>
+and then taking their linear combination.</p></li>
+<li><p>Differentiation of polynomials. In this case <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>V</mi><mo>=</mo><msup><mi>ℙ</mi><mi>n</mi></msup></mrow><annotation encoding="application/x-tex">V = {\mathbb{P}}^{n}</annotation></semantics></math>
+and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>W</mi><mo>=</mo><msup><mi>ℙ</mi><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow></msup></mrow><annotation encoding="application/x-tex">W = {\mathbb{P}}^{n - 1}</annotation></semantics></math>, where <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>ℙ</mi><mi>n</mi></msup><annotation encoding="application/x-tex">{\mathbb{P}}^{n}</annotation></semantics></math> is the
+field of all polynomials of degree at most <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>.</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mi>d</mi><mrow><mi>d</mi><mi>x</mi></mrow></mfrac><mrow><mo stretchy="true" form="prefix">(</mo><mi>α</mi><mi>v</mi><mo>+</mo><mi>β</mi><mi>w</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mi>α</mi><mfrac><mi>d</mi><mrow><mi>d</mi><mi>x</mi></mrow></mfrac><mi>v</mi><mo>+</mo><mi>β</mi><mfrac><mi>d</mi><mrow><mi>d</mi><mi>x</mi></mrow></mfrac><mi>w</mi><mo>,</mo><mo>∀</mo><mi>v</mi><mo>∈</mo><mi>V</mi><mo>,</mo><mi>w</mi><mo>∈</mo><mi>W</mi><mo>,</mo><mo>∀</mo><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> scalars </mtext><mspace width="0.333em"></mspace></mrow><mi>α</mi><mo>,</mo><mi>β</mi></mrow><annotation encoding="application/x-tex">\frac{d}{dx}(\alpha v + \beta w) = \alpha\frac{d}{dx}v + \beta\frac{d}{dx}w,\forall v \in V,w \in W,\forall\text{ scalars }\alpha,\beta</annotation></semantics></math></p></li>
+</ol>
+<h2 id="matrices-represent-linear-transformations">Matrices represent linear transformations</h2>
+<p>Suppose we wanted to represent a linear transformation
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi><mo>:</mo><msup><mi>𝔽</mi><mi>n</mi></msup><mo>→</mo><msup><mi>𝔽</mi><mi>m</mi></msup></mrow><annotation encoding="application/x-tex">T:{\mathbb{F}}^{n} \rightarrow {\mathbb{F}}^{m}</annotation></semantics></math>. I propose that we
+need encode how <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>T</mi><annotation encoding="application/x-tex">T</annotation></semantics></math> acts on the standard basis of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>𝔽</mi><mi>n</mi></msup><annotation encoding="application/x-tex">{\mathbb{F}}^{n}</annotation></semantics></math>.</p>
+<p>Using our intuition from lower dimensional vector spaces, we know that
+the standard basis in <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>ℝ</mi><mn>2</mn></msup><annotation encoding="application/x-tex">{\mathbb{R}}^{2}</annotation></semantics></math> is the unit vectors <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mover><mi>i</mi><mo accent="true">̂</mo></mover><annotation encoding="application/x-tex">\hat{i}</annotation></semantics></math>
+and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mover><mi>j</mi><mo accent="true">̂</mo></mover><annotation encoding="application/x-tex">\hat{j}</annotation></semantics></math>. Because linear transformations preserve linearity (i.e.
+all straight lines remain straight and parallel lines remain parallel),
+we can encode any transformation as simply changing <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mover><mi>i</mi><mo accent="true">̂</mo></mover><annotation encoding="application/x-tex">\hat{i}</annotation></semantics></math> and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mover><mi>j</mi><mo accent="true">̂</mo></mover><annotation encoding="application/x-tex">\hat{j}</annotation></semantics></math>. And indeed, if any vector <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>v</mi><mo>∈</mo><msup><mi>ℝ</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">v \in {\mathbb{R}}^{2}</annotation></semantics></math> can be
+represented as the linear combination of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mover><mi>i</mi><mo accent="true">̂</mo></mover><annotation encoding="application/x-tex">\hat{i}</annotation></semantics></math> and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mover><mi>j</mi><mo accent="true">̂</mo></mover><annotation encoding="application/x-tex">\hat{j}</annotation></semantics></math> (this
+is the definition of a basis), it makes sense both symbolically and
+geometrically that we can represent all linear transformations as the
+transformations of the basis vectors.</p>
+<p><em>Example</em>. To reflect all vectors <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>v</mi><mo>∈</mo><msup><mi>ℝ</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">v \in {\mathbb{R}}^{2}</annotation></semantics></math> across the
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>y</mi><annotation encoding="application/x-tex">y</annotation></semantics></math>-axis, we can simply change the standard basis to</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mo stretchy="true" form="prefix">(</mo><mtable><mtr><mtd columnalign="center" style="text-align: center"><mi>−</mi><mn>1</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd></mtr></mtable><mo stretchy="true" form="postfix">)</mo></mrow><mrow><mo stretchy="true" form="prefix">(</mo><mtable><mtr><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mn>1</mn></mtd></mtr></mtable><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\begin{pmatrix}
+ - 1 \\
+0
+\end{pmatrix}\begin{pmatrix}
+0 \\
+1
+\end{pmatrix}</annotation></semantics></math></p>
+<p>Then, any vector in <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>ℝ</mi><mn>2</mn></msup><annotation encoding="application/x-tex">{\mathbb{R}}^{2}</annotation></semantics></math> using this new basis will be
+reflected across the <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>y</mi><annotation encoding="application/x-tex">y</annotation></semantics></math>-axis. Take a moment to justify this
+geometrically.</p>
+<h3 id="writing-a-linear-transformation-as-matrix">Writing a linear transformation as matrix</h3>
+<p>For any linear transformation
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi><mo>:</mo><msup><mi>𝔽</mi><mi>m</mi></msup><mo>→</mo><msup><mi>𝔽</mi><mi>n</mi></msup></mrow><annotation encoding="application/x-tex">T:{\mathbb{F}}^{m} \rightarrow {\mathbb{F}}^{n}</annotation></semantics></math>, we can write it as an
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>×</mo><mi>m</mi></mrow><annotation encoding="application/x-tex">n \times m</annotation></semantics></math> matrix <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math>. That is, there is a matrix <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math> with <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math> rows
+and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>m</mi><annotation encoding="application/x-tex">m</annotation></semantics></math> columns that can represent any linear transformation from
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>𝔽</mi><mi>m</mi></msup><mo>→</mo><msup><mi>𝔽</mi><mi>n</mi></msup></mrow><annotation encoding="application/x-tex">{\mathbb{F}}^{m} \rightarrow {\mathbb{F}}^{n}</annotation></semantics></math>.</p>
+<p>How should we write this matrix? Naturally, from our previous
+discussion, we should write a matrix with each <em>column</em> being one of our
+new transformed <em>basis</em> vectors.</p>
+<p><em>Example</em>. Our <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>y</mi><annotation encoding="application/x-tex">y</annotation></semantics></math>-axis reflection transformation from earlier. We write
+the bases in a matrix</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="true" form="prefix">(</mo><mtable><mtr><mtd columnalign="center" style="text-align: center"><mi>−</mi><mn>1</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>1</mn></mtd></mtr></mtable><mo stretchy="true" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\begin{pmatrix}
+ - 1 &amp; 0 \\
+0 &amp; 1
+\end{pmatrix}</annotation></semantics></math></p>
+<h3 id="matrix-vector-multiplication">Matrix-vector multiplication</h3>
+<p>Perhaps you now see why the so-called matrix-vector multiplication is
+defined the way it is. Recalling our definition of a basis, given a
+basis in <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>V</mi><annotation encoding="application/x-tex">V</annotation></semantics></math>, any vector <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>v</mi><mo>∈</mo><mi>V</mi></mrow><annotation encoding="application/x-tex">v \in V</annotation></semantics></math> can be written as the linear
+combination of the vectors in the basis. Then, given a linear
+transformation represented by the matrix containing the new basis, we
+simply write the linear combination with the new basis instead.</p>
+<p><em>Example</em>. Let us first write a vector in the standard basis in
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>ℝ</mi><mn>2</mn></msup><annotation encoding="application/x-tex">{\mathbb{R}}^{2}</annotation></semantics></math> and then show how our matrix-vector multiplication
+naturally corresponds to the definition of the linear transformation.</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mo stretchy="true" form="prefix">(</mo><mtable><mtr><mtd columnalign="center" style="text-align: center"><mn>1</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mn>2</mn></mtd></mtr></mtable><mo stretchy="true" form="postfix">)</mo></mrow><mo>∈</mo><msup><mi>ℝ</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">\begin{pmatrix}
+1 \\
+2
+\end{pmatrix} \in {\mathbb{R}}^{2}</annotation></semantics></math></p>
+<p>is the same as</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>⋅</mo><mrow><mo stretchy="true" form="prefix">(</mo><mtable><mtr><mtd columnalign="center" style="text-align: center"><mn>1</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd></mtr></mtable><mo stretchy="true" form="postfix">)</mo></mrow><mo>+</mo><mn>2</mn><mo>⋅</mo><mrow><mo stretchy="true" form="prefix">(</mo><mtable><mtr><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mn>1</mn></mtd></mtr></mtable><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">1 \cdot \begin{pmatrix}
+1 \\
+0
+\end{pmatrix} + 2 \cdot \begin{pmatrix}
+0 \\
+1
+\end{pmatrix}</annotation></semantics></math></p>
+<p>Then, to perform our reflection, we need only replace the basis vector
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="true" form="prefix">(</mo><mtable><mtr><mtd columnalign="center" style="text-align: center"><mn>1</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd></mtr></mtable><mo stretchy="true" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\begin{pmatrix}
+1 \\
+0
+\end{pmatrix}</annotation></semantics></math> with <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="true" form="prefix">(</mo><mtable><mtr><mtd columnalign="center" style="text-align: center"><mi>−</mi><mn>1</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd></mtr></mtable><mo stretchy="true" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\begin{pmatrix}
+ - 1 \\
+0
+\end{pmatrix}</annotation></semantics></math>.</p>
+<p>Then, the reflected vector is given by</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>⋅</mo><mrow><mo stretchy="true" form="prefix">(</mo><mtable><mtr><mtd columnalign="center" style="text-align: center"><mi>−</mi><mn>1</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd></mtr></mtable><mo stretchy="true" form="postfix">)</mo></mrow><mo>+</mo><mn>2</mn><mo>⋅</mo><mrow><mo stretchy="true" form="prefix">(</mo><mtable><mtr><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mn>1</mn></mtd></mtr></mtable><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mrow><mo stretchy="true" form="prefix">(</mo><mtable><mtr><mtd columnalign="center" style="text-align: center"><mi>−</mi><mn>1</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mn>2</mn></mtd></mtr></mtable><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">1 \cdot \begin{pmatrix}
+ - 1 \\
+0
+\end{pmatrix} + 2 \cdot \begin{pmatrix}
+0 \\
+1
+\end{pmatrix} = \begin{pmatrix}
+ - 1 \\
+2
+\end{pmatrix}</annotation></semantics></math></p>
+<p>We can clearly see that this is exactly how the matrix multiplication</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mo stretchy="true" form="prefix">(</mo><mtable><mtr><mtd columnalign="center" style="text-align: center"><mi>−</mi><mn>1</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>1</mn></mtd></mtr></mtable><mo stretchy="true" form="postfix">)</mo></mrow><mo>⋅</mo><mrow><mo stretchy="true" form="prefix">(</mo><mtable><mtr><mtd columnalign="center" style="text-align: center"><mn>1</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mn>2</mn></mtd></mtr></mtable><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\begin{pmatrix}
+ - 1 &amp; 0 \\
+0 &amp; 1
+\end{pmatrix} \cdot \begin{pmatrix}
+1 \\
+2
+\end{pmatrix}</annotation></semantics></math> is defined! The <em>column-by-coordinate</em> rule for
+matrix-vector multiplication says that we multiply the <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>n</mi><mtext mathvariant="normal">th</mtext></msup><annotation encoding="application/x-tex">n^{\text{th}}</annotation></semantics></math>
+entry of the vector by the corresponding <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>n</mi><mtext mathvariant="normal">th</mtext></msup><annotation encoding="application/x-tex">n^{\text{th}}</annotation></semantics></math> column of the
+matrix and sum them all up (take their linear combination). This
+algorithm intuitively follows from our definition of matrices.</p>
+<h3 id="matrix-matrix-multiplication">Matrix-matrix multiplication</h3>
+<p>As you may have noticed, a very similar natural definition arises for
+the <em>matrix-matrix</em> multiplication. Multiplying two matrices <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>⋅</mo><mi>B</mi></mrow><annotation encoding="application/x-tex">A \cdot B</annotation></semantics></math>
+is essentially just taking each column of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>B</mi><annotation encoding="application/x-tex">B</annotation></semantics></math>, and applying the linear
+transformation defined by the matrix <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math>!</p></main>
+</article>
+
+    <footer class="mt-14 md:mt-24 pb-12 font-light">
+      <hr
+        class="border-0 dark:bg-muted-dark bg-muted-light rounded-xl h-0.5 mb-4"
+      />
+      <p class="text-sm leading-relaxed">
+        &copy; 2024 Youwen Wu. Generated by
+        <a
+          href="https://jaspervdj.be/hakyll/"
+          class="external-link-muted"
+          target="__blank"
+          >Hakyll.</a
+        >
+        View the source
+        <a
+          href="https://github.com/couscousdude/blog"
+          class="external-link-muted"
+          target="__blank"
+          >on GitHub.</a
+        >
+      </p>
+      <p class="text-sm leading-relaxed mt-2">
+        Content freely available under
+        <a
+          class="external-link-muted"
+          target="__blank"
+          href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en"
+          ><span class="smallcaps">CC BY-NC-SA</span> 4.0</a
+        >
+        unless otherwise noted.
+      </p>
+    </footer>
+    <script defer src="./out/bundle.js"></script>
+  </body>
+</html>

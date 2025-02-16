@@ -1,0 +1,435 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Nix automatic hash updates made easy | The Involution</title>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="keep your flakes up to date" />
+    
+    <meta name="author" content="Youwen Wu" />
+     
+    <meta name="keywords" content="nix, update, zen browser" />
+    
+
+    <meta property="og:site_name" content="The Involution" />
+    <meta property="og:title" content="Nix automatic hash updates made easy" />
+    <meta property="og:url" content="https://blog.youwen.dev/nix-automatic-hash-updates-made-easy.html" />
+    <meta property="og:description" content="keep your flakes up to date" />
+    
+    <meta property="og:image" content="https://blog.youwen.devhttps://wallpapercave.com/wp/wp12329537.png" />
+     
+    <meta property="og:type" content="article" />
+     
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:image" content="https://blog.youwen.devhttps://wallpapercave.com/wp/wp12329537.png" />
+    
+    <meta property="twitter:site" content="The Involution" />
+    <meta property="twitter:title" content="Nix automatic hash updates made easy" />
+    <meta property="twitter:description" content="keep your flakes up to date" />
+    
+    <meta property="twitter:creator" content="@youwen" />
+    
+
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="canonical" href="https://blog.youwen.dev/nix-automatic-hash-updates-made-easy.html" />
+
+    <link
+      rel="alternate"
+      href="./atom.xml"
+      title="The Involution"
+      type="application/atom+xml"
+    />
+    <link
+      rel="alternate"
+      href="./rss.xml"
+      title="The Involution"
+      type="application/rss+xml"
+    />
+    <link rel="stylesheet" href="./out/bundle.css" />
+    <link rel="stylesheet" href="./css/code.css" />
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/mml-chtml.js"
+    ></script>
+
+    <script>
+      if (
+        localStorage.theme === "dark" ||
+        (!("theme" in localStorage) &&
+          window.matchMedia("(prefers-color-scheme: dark)").matches)
+      ) {
+        document.documentElement.classList.add("dark")
+      } else {
+        document.documentElement.classList.remove("dark")
+      }
+      window.onload = () => {
+        var themeButton = document.getElementById("theme-toggle")
+        const theme = localStorage.getItem("theme")
+        if (theme === "light") {
+          themeButton.innerText = "theme: light"
+        } else if (theme === "dark") {
+          themeButton.innerText = "theme: dark"
+        } else {
+          themeButton.innerText = "theme: system"
+        }
+        var fontButton = document.getElementById("font-toggle")
+        const font = localStorage.getItem("font")
+        if (font && font === "serif") {
+          document.body.classList.remove("font-sans")
+          document.body.classList.remove("font-serif")
+          document.body.classList.add("font-serif")
+          fontButton.innerText = "serif"
+        }
+        if (font && font === "sans") {
+          document.body.classList.remove("font-sans")
+          document.body.classList.remove("font-serif")
+          document.body.classList.add("font-sans")
+          fontButton.innerText = "sans"
+        }
+        if (!font) {
+          document.body.classList.remove("font-sans")
+          document.body.classList.remove("font-serif")
+          fontButton.innerText = "serif"
+        }
+      }
+      MathJax = {
+        startup: {
+          ready: function () {
+            MathJax.startup.defaultReady()
+            MathJax.startup.promise.then(function () {
+              MathJax.mathml2svgPromise(document.body)
+            })
+          },
+        },
+      }
+    </script>
+  </head>
+  <body
+    class="container max-w-3xl mx-auto px-4 transition-colors duration-[2s]"
+  >
+    <header class="mt-14 md:mt-24 mb-14">
+      <div class="inline-flex items-center w-full">
+        <h1 class="text-4xl md:text-5xl font-serif font-medium">
+          <a
+            href="/"
+            class="dark:hover:text-muted-dark hover:text-muted-light transition-all duration-500 text-nowrap tracking-wide"
+            ><em>The Involution.</em></a
+          >
+        </h1>
+        <div
+          class="w-full flex-grow flex-shrink rounded-lg h-1 bg-muted-light dark:bg-muted-dark mx-4"
+        ></div>
+      </div>
+      <p class="mt-8 mb-3 px-1 italic font-light">
+        a web-log about computers and math and hacking.
+      </p>
+      <a class="text-sm text-iris-light dark:text-iris-dark hover:text-love-light dark:hover:text-love-dark" href="https://youwen.dev"
+        ><em>by </em>Youwen Wu</a
+      >
+      <span class="ml-2 font-serif">|</span>
+      <button
+        id="theme-toggle"
+        class="ml-2 text-sm hover:text-accent-light dark:hover:text-muted-dark"
+      ></button>
+      <span class="ml-2 font-serif">|</span>
+      <button
+        id="font-toggle"
+        class="ml-2 text-sm hover:text-accent-light dark:hover:text-muted-dark"
+      ></button>
+    </header>
+    <article>
+  <header>
+    <h1 class="text-4xl">
+      <a href="./nix-automatic-hash-updates-made-easy.html">Nix automatic hash updates made easy</a>
+    </h1>
+    <p
+      class="mb-1 mt-2 italic font-light text-lg text-accent-light dark:text-accent-dark"
+    >
+      keep your flakes up to date
+    </p>
+    <div class="mt-2">2024-12-28</div>
+    <div class="mt-1 text-sm">
+      
+    </div>
+  </header>
+  <main class="post mt-4"><p>Nix users often create flakes to package software out of tree, like this <a href="https://github.com/youwen5/zen-browser-flake">Zen
+Browser flake</a> I’ve been
+maintaining. Keeping them up to date is a hassle though, since you have to
+update the Subresource Integrity (SRI) hashes that Nix uses to ensure
+reproducibility.</p>
+<p>Here’s a neat method I’ve been using to cleanly handle automatic hash updates.
+I use <a href="https://www.nushell.sh/">Nushell</a> to easily work with data, prefetch
+some hashes, and put it all in a JSON file that can be read by Nix at build
+time.</p>
+<p>First, let’s create a file called <code>update.nu</code>. At the top, place this shebang:</p>
+<pre class="nu"><code>#!/usr/bin/env -S nix shell nixpkgs#nushell --command nu</code></pre>
+<p>This will execute the script in a Nushell environment, which is fetched by Nix.</p>
+<h2 id="get-the-up-to-date-urls">Get the up to date URLs</h2>
+<p>We need to obtain the latest version of whatever software we want to update.
+In this case, I’ll use GitHub releases as my source of truth.</p>
+<p>You can use the GitHub API to fetch metadata about all the releases of a repository.</p>
+<pre><code>https://api.github.com/repos/($repo)/releases</code></pre>
+<p>Roughly speaking, the raw JSON returned by the GitHub releases API looks something like:</p>
+<pre><code>[
+   {tag_name: &quot;foo&quot;, prerelease: false, ...},
+   {tag_name: &quot;bar&quot;, prerelease: true, ...},
+   {tag_name: &quot;foobar&quot;, prerelease: false, ...},
+]
+</code></pre>
+<p>Note that the ordering of the objects in the array is chronological.</p>
+<blockquote>
+<p>Even if you aren’t using GitHub releases, as long as there is a reliable way to
+programmatically fetch the latest download URLs of whatever software you’re
+packaging, you can adapt this approach for your specific case.</p>
+</blockquote>
+<p>We use Nushell’s <code>http get</code> to make a network request. Nushell will
+automatically detect and parse the JSON reponse into a Nushell table.</p>
+<p>In my case, Zen Browser frequently publishes prerelease “twilight” builds which
+we don’t want to update to. So, we ignore any releases tagged “twilight” or
+marked “prerelease” by filtering them out with the <code>where</code> selector.</p>
+<p>Finally, we retrieve the tag name of the item at the first index, which would
+be the latest release (since the JSON array was chronologically sorted).</p>
+<pre class="nu"><code>#!/usr/bin/env -S nix shell nixpkgs#nushell --command nu
+
+# get the latest tag of the latest release that isn&#39;t a prerelease
+def get_latest_release [repo: string] {
+  try {
+	http get $&quot;https://api.github.com/repos/($repo)/releases&quot;
+	  | where prerelease == false
+	  | where tag_name != &quot;twilight&quot;
+	  | get tag_name
+	  | get 0
+  } catch { |err| $&quot;Failed to fetch latest release, aborting: ($err.msg)&quot; }
+}</code></pre>
+<h2 id="prefetching-sri-hashes">Prefetching SRI hashes</h2>
+<p>Now that we have the latest tags, we can easily obtain the latest download URLs, which are of the form:</p>
+<pre><code>https://github.com/zen-browser/desktop/releases/download/$tag/zen.linux-x86_64.tar.bz2
+https://github.com/zen-browser/desktop/releases/download/$tag/zen.aarch64-x86_64.tar.bz2</code></pre>
+<p>However, we still need the corresponding SRI hashes to pass to Nix.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode nix"><code class="sourceCode nix"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>src = fetchurl <span class="op">{</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>   <span class="va">url</span> <span class="op">=</span> <span class="st">&quot;https://github.com/zen-browser/desktop/releases/download/1.0.2-b.5/zen.linux-x86_64.tar.bz2&quot;</span><span class="op">;</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>   <span class="va">hash</span> <span class="op">=</span> <span class="st">&quot;sha256-00000000000000000000000000000000000000000000&quot;</span><span class="op">;</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="op">}</span>;</span></code></pre></div>
+<p>The easiest way to obtain these new hashes is to update the URL and then set
+the hash property to an empty string (<code>""</code>). Nix will spit out an hash mismatch
+error with the correct hash. However, this is inconvenient for automated
+command line scripting.</p>
+<p>The Nix documentation mentions
+<a href="https://nix.dev/manual/nix/2.18/command-ref/nix-prefetch-url">nix-prefetch-url</a>
+as a way to obtain these hashes, but as usual, it doesn’t work quite right and
+has also been replaced by a more powerful but underdocumented experimental
+feature instead.</p>
+<p>The <a href="https://nix.dev/manual/nix/2.18/command-ref/new-cli/nix3-store-prefetch-file">nix store
+prefetch-file</a>
+command does what <code>nix-prefetch-url</code> is supposed to do, but handles the caveats
+that lead to the wrong hash being produced automatically.</p>
+<p>Let’s write a Nushell function that outputs the SRI hash of the given URL. We
+tell <code>prefetch-file</code> to output structured JSON that we can parse.</p>
+<p>Since Nushell <em>is</em> a shell, we can directly invoke shell commands like usual,
+and then process their output with pipes.</p>
+<pre class="nu"><code>def get_nix_hash [url: string] {
+  nix store prefetch-file --hash-type sha256 --json $url | from json | get hash
+}</code></pre>
+<p>Cool! Now <code>get_nix_hash</code> can give us SRI hashes that look like this:</p>
+<pre><code>sha256-K3zTCLdvg/VYQNsfeohw65Ghk8FAjhOl8hXU6REO4/s=</code></pre>
+<h2 id="putting-it-all-together">Putting it all together</h2>
+<p>Now that we’re able to fetch the latest release, obtain the download URLs, and
+compute their SRI hashes, we have all the information we need to make an
+automated update. However, these URLs are typically hardcoded in our Nix
+expressions. The question remains as to how to update these values.</p>
+<p>A common way I’ve seen updates performed is using something like <code>sed</code> to
+modify the Nix expressions in place. However, there’s actually a more
+maintainable and easy to understand approach.</p>
+<p>Let’s have our Nushell script generate the URLs and hashes and place them in a
+JSON file! Then, we’ll be able to read the JSON file from Nix and obtain the
+URL and hash.</p>
+<pre class="nu"><code>def generate_sources [] {
+  let tag = get_latest_release &quot;zen-browser/desktop&quot;
+  let prev_sources = open ./sources.json
+
+  if $tag == $prev_sources.version {
+	# everything up to date
+	return $tag
+  }
+
+  # generate the download URLs with the new tag
+  let x86_64_url = $&quot;https://github.com/zen-browser/desktop/releases/download/($tag)/zen.linux-x86_64.tar.bz2&quot;
+  let aarch64_url = $&quot;https://github.com/zen-browser/desktop/releases/download/($tag)/zen.linux-aarch64.tar.bz2&quot;
+
+  # create a Nushell record that maps cleanly to JSON
+  let sources = {
+    # add a version field as well for convenience
+	version: $tag
+
+	x86_64-linux: {
+	  url:  $x86_64_url
+	  hash: (get_nix_hash $x86_64_url)
+	}
+	aarch64-linux: {
+	  url: $aarch64_url
+	  hash: (get_nix_hash $aarch64_url)
+	}
+  }
+
+  echo $sources | save --force &quot;sources.json&quot;
+
+  return $tag
+}</code></pre>
+<p>Running this script with</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chmod</span> +x ./update.nu</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="ex">./update.nu</span></span></code></pre></div>
+<p>gives us the file <code>sources.json</code>:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;version&quot;</span><span class="fu">:</span> <span class="st">&quot;1.0.2-b.5&quot;</span><span class="fu">,</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;x86_64-linux&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;url&quot;</span><span class="fu">:</span> <span class="st">&quot;https://github.com/zen-browser/desktop/releases/download/1.0.2-b.5/zen.linux-x86_64.tar.bz2&quot;</span><span class="fu">,</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;hash&quot;</span><span class="fu">:</span> <span class="st">&quot;sha256-K3zTCLdvg/VYQNsfeohw65Ghk8FAjhOl8hXU6REO4/s=&quot;</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">},</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;aarch64-linux&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;url&quot;</span><span class="fu">:</span> <span class="st">&quot;https://github.com/zen-browser/desktop/releases/download/1.0.2-b.5/zen.linux-aarch64.tar.bz2&quot;</span><span class="fu">,</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;hash&quot;</span><span class="fu">:</span> <span class="st">&quot;sha256-NwIYylGal2QoWhWKtMhMkAAJQ6iNHfQOBZaxTXgvxAk=&quot;</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<p>Now, let’s read this from Nix. My file organization looks like the following:</p>
+<pre><code>./
+| flake.nix
+| zen-browser-unwrapped.nix
+| ...other files...</code></pre>
+<p><code>zen-browser-unwrapped.nix</code> contains the derivation for Zen Browser. Let’s add
+<code>version</code>, <code>url</code>, and <code>hash</code> to its inputs:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode nix"><code class="sourceCode nix"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="va">stdenv</span><span class="op">,</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="va">fetchurl</span><span class="op">,</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># add these below</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="va">version</span><span class="op">,</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  <span class="va">url</span><span class="op">,</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>  <span class="va">hash</span><span class="op">,</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>  <span class="op">...</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="op">}</span>:</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>stdenv.mkDerivation <span class="op">{</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>   <span class="co"># inherit version from inputs</span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>  <span class="kw">inherit</span> version<span class="op">;</span></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>  <span class="va">pname</span> <span class="op">=</span> <span class="st">&quot;zen-browser-unwrapped&quot;</span><span class="op">;</span></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>  <span class="va">src</span> <span class="op">=</span> fetchurl <span class="op">{</span></span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># inherit the URL and hash we obtain from the inputs</span></span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>    <span class="kw">inherit</span> url hash<span class="op">;</span></span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>  <span class="op">};</span></span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>Then in <code>flake.nix</code>, let’s provide the derivation with the data from <code>sources.json</code>:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode nix"><code class="sourceCode nix"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>   <span class="va">supportedSystems</span> <span class="op">=</span> <span class="op">[</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>     <span class="st">&quot;x86_64-linux&quot;</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>     <span class="st">&quot;aarch64-linux&quot;</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>   <span class="op">];</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>   <span class="va">forAllSystems</span> <span class="op">=</span> nixpkgs.lib.genAttrs supportedSystems<span class="op">;</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="kw">in</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>   <span class="co"># rest of file omitted for simplicity</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>   <span class="va">packages</span> <span class="op">=</span> forAllSystems <span class="op">(</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>     <span class="va">system</span><span class="op">:</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>     <span class="kw">let</span></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>       <span class="va">pkgs</span> <span class="op">=</span> <span class="bu">import</span> nixpkgs <span class="op">{</span> <span class="kw">inherit</span> system<span class="op">;</span> <span class="op">};</span></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>       <span class="co"># parse sources.json into a Nix attrset</span></span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>       <span class="va">sources</span> <span class="op">=</span> <span class="bu">builtins</span>.fromJSON <span class="op">(</span><span class="bu">builtins</span>.readFile <span class="ss">./sources.json</span><span class="op">);</span></span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>     <span class="kw">in</span></span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>     <span class="kw">rec</span> <span class="op">{</span></span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>       <span class="va">zen-browser-unwrapped</span> <span class="op">=</span> pkgs.callPackage <span class="ss">./zen-browser-unwrapped.nix</span> <span class="op">{</span></span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>         <span class="kw">inherit</span> <span class="op">(</span>sources.$<span class="op">{</span><span class="va">system</span><span class="op">})</span> hash url<span class="op">;</span></span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>         <span class="kw">inherit</span> <span class="op">(</span>sources<span class="op">)</span> version<span class="op">;</span></span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a>         <span class="co"># if the above is difficult to understand, it is equivalent to the following:</span></span>
+<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a>         <span class="va">hash</span> <span class="op">=</span> sources.$<span class="op">{</span><span class="va">system</span><span class="op">}</span>.hash<span class="op">;</span></span>
+<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a>         <span class="va">url</span> <span class="op">=</span> sources.$<span class="op">{</span><span class="va">system</span><span class="op">}</span>.url<span class="op">;</span></span>
+<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a>         <span class="va">version</span> <span class="op">=</span> sources.version<span class="op">;</span></span>
+<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a>       <span class="op">};</span></span>
+<span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>Now, running <code>nix build .#zen-browser-unwrapped</code> will be able to use the hashes
+and URLs from <code>sources.json</code> to build the package!</p>
+<h2 id="automating-it-in-ci">Automating it in CI</h2>
+<p>We now have a script that can automatically fetch releases and generate hashes
+and URLs, as well as a way for Nix to use the outputted JSON to build
+derivations. All that’s left is to fully automate it using CI!</p>
+<p>We are going to use GitHub actions for this, as it’s free and easy and you’re
+probably already hosting on GitHub.</p>
+<p>Ensure you’ve set up actions for your repo and given it sufficient permissions.</p>
+<p>We’re gonna run it on a cron timer that checks for updates at 8 PM PST every day.</p>
+<p>We use DeterminateSystems’ actions to help set up Nix. Then, we simply run our
+update script. Since we made the script return the tag it fetched, we can store
+it in a variable and then use it in our commit message.</p>
+<pre><code>name: Update to latest version, and update flake inputs
+
+on:
+  schedule:
+    - cron: &quot;0 4 * * *&quot;
+  workflow_dispatch:
+
+jobs:
+  update:
+    name: Update flake inputs and browser
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Check flake inputs
+        uses: DeterminateSystems/flake-checker-action@v4
+
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@main
+
+      - name: Set up magic Nix cache
+        uses: DeterminateSystems/magic-nix-cache-action@main
+
+      - name: Check for update and perform update
+        run: |
+          git config --global user.name &quot;github-actions[bot]&quot;
+          git config --global user.email &quot;github-actions[bot]@users.noreply.github.com&quot;
+
+          chmod +x ./update.nu
+          export ZEN_LATEST_VER=&quot;$(./update.nu)&quot;
+
+          git add -A
+          git commit -m &quot;github-actions: update to $ZEN_LATEST_VER&quot; || echo &quot;Latest version is $ZEN_LATEST_VER, no updates found&quot;
+
+          nix flake update --commit-lock-file
+
+          git push</code></pre>
+<p>Now, our repository will automatically check for and perform updates every day!</p></main>
+</article>
+
+    <footer class="mt-14 md:mt-24 pb-12 font-light">
+      <hr
+        class="border-0 dark:bg-muted-dark bg-muted-light rounded-xl h-0.5 mb-4"
+      />
+      <p class="text-sm leading-relaxed">
+        &copy; 2024 Youwen Wu. Generated by
+        <a
+          href="https://jaspervdj.be/hakyll/"
+          class="external-link-muted"
+          target="__blank"
+          >Hakyll.</a
+        >
+        View the source
+        <a
+          href="https://github.com/couscousdude/blog"
+          class="external-link-muted"
+          target="__blank"
+          >on GitHub.</a
+        >
+      </p>
+      <p class="text-sm leading-relaxed mt-2">
+        Content freely available under
+        <a
+          class="external-link-muted"
+          target="__blank"
+          href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en"
+          ><span class="smallcaps">CC BY-NC-SA</span> 4.0</a
+        >
+        unless otherwise noted.
+      </p>
+    </footer>
+    <script defer src="./out/bundle.js"></script>
+  </body>
+</html>

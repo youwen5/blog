@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>a haskellian blog | The Involution</title>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="a purely functional...blog?" />
+    
+    <meta name="author" content="Youwen Wu" />
+     
+    <meta name="keywords" content="haskell, blog, functional programming" />
+    
+
+    <meta property="og:site_name" content="The Involution" />
+    <meta property="og:title" content="a haskellian blog" />
+    <meta property="og:url" content="https://blog.youwen.dev/a-haskellian-blog.html" />
+    <meta property="og:description" content="a purely functional...blog?" />
+    
+    <meta property="og:image" content="https://blog.youwen.dev./images/conditional-finality.png" />
+     
+    <meta property="og:type" content="article" />
+     
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:image" content="https://blog.youwen.dev./images/conditional-finality.png" />
+    
+    <meta property="twitter:site" content="The Involution" />
+    <meta property="twitter:title" content="a haskellian blog" />
+    <meta property="twitter:description" content="a purely functional...blog?" />
+    
+    <meta property="twitter:creator" content="@youwen" />
+    
+
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="canonical" href="https://blog.youwen.dev/a-haskellian-blog.html" />
+
+    <link
+      rel="alternate"
+      href="./atom.xml"
+      title="The Involution"
+      type="application/atom+xml"
+    />
+    <link
+      rel="alternate"
+      href="./rss.xml"
+      title="The Involution"
+      type="application/rss+xml"
+    />
+    <link rel="stylesheet" href="./out/bundle.css" />
+    <link rel="stylesheet" href="./css/code.css" />
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/mml-chtml.js"
+    ></script>
+
+    <script>
+      if (
+        localStorage.theme === "dark" ||
+        (!("theme" in localStorage) &&
+          window.matchMedia("(prefers-color-scheme: dark)").matches)
+      ) {
+        document.documentElement.classList.add("dark")
+      } else {
+        document.documentElement.classList.remove("dark")
+      }
+      window.onload = () => {
+        var themeButton = document.getElementById("theme-toggle")
+        const theme = localStorage.getItem("theme")
+        if (theme === "light") {
+          themeButton.innerText = "theme: light"
+        } else if (theme === "dark") {
+          themeButton.innerText = "theme: dark"
+        } else {
+          themeButton.innerText = "theme: system"
+        }
+        var fontButton = document.getElementById("font-toggle")
+        const font = localStorage.getItem("font")
+        if (font && font === "serif") {
+          document.body.classList.remove("font-sans")
+          document.body.classList.remove("font-serif")
+          document.body.classList.add("font-serif")
+          fontButton.innerText = "serif"
+        }
+        if (font && font === "sans") {
+          document.body.classList.remove("font-sans")
+          document.body.classList.remove("font-serif")
+          document.body.classList.add("font-sans")
+          fontButton.innerText = "sans"
+        }
+        if (!font) {
+          document.body.classList.remove("font-sans")
+          document.body.classList.remove("font-serif")
+          fontButton.innerText = "serif"
+        }
+      }
+      MathJax = {
+        startup: {
+          ready: function () {
+            MathJax.startup.defaultReady()
+            MathJax.startup.promise.then(function () {
+              MathJax.mathml2svgPromise(document.body)
+            })
+          },
+        },
+      }
+    </script>
+  </head>
+  <body
+    class="container max-w-3xl mx-auto px-4 transition-colors duration-[2s]"
+  >
+    <header class="mt-14 md:mt-24 mb-14">
+      <div class="inline-flex items-center w-full">
+        <h1 class="text-4xl md:text-5xl font-serif font-medium">
+          <a
+            href="/"
+            class="dark:hover:text-muted-dark hover:text-muted-light transition-all duration-500 text-nowrap tracking-wide"
+            ><em>The Involution.</em></a
+          >
+        </h1>
+        <div
+          class="w-full flex-grow flex-shrink rounded-lg h-1 bg-muted-light dark:bg-muted-dark mx-4"
+        ></div>
+      </div>
+      <p class="mt-8 mb-3 px-1 italic font-light">
+        a web-log about computers and math and hacking.
+      </p>
+      <a class="text-sm text-iris-light dark:text-iris-dark hover:text-love-light dark:hover:text-love-dark" href="https://youwen.dev"
+        ><em>by </em>Youwen Wu</a
+      >
+      <span class="ml-2 font-serif">|</span>
+      <button
+        id="theme-toggle"
+        class="ml-2 text-sm hover:text-accent-light dark:hover:text-muted-dark"
+      ></button>
+      <span class="ml-2 font-serif">|</span>
+      <button
+        id="font-toggle"
+        class="ml-2 text-sm hover:text-accent-light dark:hover:text-muted-dark"
+      ></button>
+    </header>
+    <article>
+  <header>
+    <h1 class="text-4xl">
+      <a href="./a-haskellian-blog.html">a haskellian blog</a>
+    </h1>
+    <p
+      class="mb-1 mt-2 italic font-light text-lg text-accent-light dark:text-accent-dark"
+    >
+      a purely functional...blog?
+    </p>
+    <div class="mt-2">2024-05-25</div>
+    <div class="mt-1 text-sm">
+      (last updated: 2024-05-25T12:00:00Z)
+    </div>
+  </header>
+  <main class="post mt-4"><p>Welcome! This is the first post on <em>The Involution</em> and also one that tests all
+of the features.</p>
+<!--<img-->
+<!--  alt="conditional finality"-->
+<!--  src="./images/conditional-finality.png"-->
+<!--/>-->
+<blockquote>
+<p>A monad is just a monoid in the category of endofunctors, what’s the problem?</p>
+</blockquote>
+<h2 id="haskell">haskell?</h2>
+<p>This entire blog is generated with <a href="https://jaspervdj.be/hakyll/">hakyll</a>. It’s
+a library for generating static sites for Haskell, a purely functional
+programming language. It’s a <em>library</em> because it doesn’t come with as many
+batteries included as tools like Hugo or Astro. You set up most of the site
+yourself by calling the library from Haskell.</p>
+<p>Here’s a brief excerpt:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ot">main ::</span> <span class="dt">IO</span> ()</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>main <span class="ot">=</span> hakyllWith config <span class="op">$</span> <span class="kw">do</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    forM_</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>        [ <span class="st">&quot;CNAME&quot;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>        , <span class="st">&quot;favicon.ico&quot;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>        , <span class="st">&quot;robots.txt&quot;</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>        , <span class="st">&quot;_config.yml&quot;</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>        , <span class="st">&quot;images/*&quot;</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>        , <span class="st">&quot;out/*&quot;</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>        , <span class="st">&quot;fonts/*&quot;</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>        ]</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>        <span class="op">$</span> \f <span class="ot">-&gt;</span> match f <span class="op">$</span> <span class="kw">do</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>            route idRoute</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>            compile copyFileCompiler</span></code></pre></div>
+<p>The code highlighting is also generated by hakyll.</p>
+<hr />
+<h2 id="why">why?</h2>
+<p>Haskell is a purely functional language with no mutable state. Its syntax
+actually makes it pretty elegant for declaring routes and “rendering” pipelines.</p>
+<ol>
+<li>Haskell is cool.</li>
+<li>It comes with enough features that I don’t feel like I have to build
+everything from scratch.</li>
+<li>It comes with Pandoc, a Haskell library for converting between markdown
+formats. It’s probably more powerful than anything you could do in <code>nodejs</code>.
+It renders all of the markdown to HTML as well as the math.
+<ol>
+<li>It supports KaTeX as well as MathML. I’m a little disappointed with the
+KaTeX though. It doesn’t directly render it, but simply injects the KaTeX
+files and renders it client-side.</li>
+</ol></li>
+</ol>
+<h3 id="speaking-of-math">speaking of math</h3>
+<p>We can have math inline, like so:
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mo>∫</mo><mrow><mi>−</mi><mi>∞</mi></mrow><mi>∞</mi></msubsup><mspace width="0.167em"></mspace><msup><mi>e</mi><mrow><mi>−</mi><msup><mi>x</mi><mn>2</mn></msup></mrow></msup><mspace width="0.167em"></mspace><mi>d</mi><mi>x</mi><mo>=</mo><msqrt><mi>π</mi></msqrt></mrow><annotation encoding="application/x-tex">\int_{-\infty}^\infty \, e^{-x^2}\,dx = \sqrt{\pi}</annotation></semantics></math>. This site ships semantic
+MathML math with its HTML, and the MathJax script to the client.</p>
+<p>It’d be nice if MathML could just be used and supported across all browsers, but
+unfortunately we still aren’t quite there yet. Firefox is the only one where
+everything looks 80% of the way to LaTeX. On Safari and Chrome, even simple
+equations like <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msqrt><mi>π</mi></msqrt><annotation encoding="application/x-tex">\sqrt{\pi}</annotation></semantics></math> render improperly.</p>
+<p>Pros of MathML:</p>
+<ul>
+<li>A little more accessible</li>
+<li>Can be rendered without additional stylesheets. I just installed the Latin
+Modern font, but this isn’t even really necessary</li>
+<li>Built-in to most browsers (#UseThePlatform)</li>
+</ul>
+<p>Cons:</p>
+<ul>
+<li>Isn’t fully standardized. Might look different on different browsers</li>
+<li>Rendering quality isn’t as good as KaTeX</li>
+</ul>
+<p>This site has MathJax render all of the math so it looks nice and standardized
+across browsers, but the math still displays regardless (like say if MathJax
+couldn’t load due to slow network) because of MathML. Best of both worlds.</p>
+<p>Let’s try it now. Here’s a simple theorem:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>a</mi><mi>n</mi></msup><mo>+</mo><msup><mi>b</mi><mi>n</mi></msup><mo>≠</mo><msup><mi>c</mi><mi>n</mi></msup><mspace width="0.167em"></mspace><mo>∀</mo><mspace width="0.167em"></mspace><mrow><mo stretchy="true" form="prefix">{</mo><mi>a</mi><mo>,</mo><mspace width="0.167em"></mspace><mi>b</mi><mo>,</mo><mspace width="0.167em"></mspace><mi>c</mi><mo stretchy="true" form="postfix">}</mo></mrow><mo>∈</mo><mi>ℤ</mi><mo>∧</mo><mi>n</mi><mo>≥</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">
+a^n + b^n \ne c^n \, \forall\,\left\{ a,\,b,\,c \right\} \in \mathbb{Z} \land n \ge 3
+</annotation></semantics></math></p>
+<p>The proof is trivial and will be left as an exercise to the reader.</p>
+<h2 id="seems-a-little-overengineered">seems a little overengineered</h2>
+<p>Probably is. Not as much as the old one, though.</p></main>
+</article>
+
+    <footer class="mt-14 md:mt-24 pb-12 font-light">
+      <hr
+        class="border-0 dark:bg-muted-dark bg-muted-light rounded-xl h-0.5 mb-4"
+      />
+      <p class="text-sm leading-relaxed">
+        &copy; 2024 Youwen Wu. Generated by
+        <a
+          href="https://jaspervdj.be/hakyll/"
+          class="external-link-muted"
+          target="__blank"
+          >Hakyll.</a
+        >
+        View the source
+        <a
+          href="https://github.com/couscousdude/blog"
+          class="external-link-muted"
+          target="__blank"
+          >on GitHub.</a
+        >
+      </p>
+      <p class="text-sm leading-relaxed mt-2">
+        Content freely available under
+        <a
+          class="external-link-muted"
+          target="__blank"
+          href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en"
+          ><span class="smallcaps">CC BY-NC-SA</span> 4.0</a
+        >
+        unless otherwise noted.
+      </p>
+    </footer>
+    <script defer src="./out/bundle.js"></script>
+  </body>
+</html>
