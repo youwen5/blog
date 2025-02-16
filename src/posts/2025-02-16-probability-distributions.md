@@ -22,13 +22,16 @@ allow Pandoc to render them to the web.
 First, some brief exposition on random variables. Quixotically, a random
 variable is actually a function.
 
-Standard notation, $\Omega$ is sample space, $\omega$ is an event.
+Standard notation: $\Omega$ is a sample space, $\omega \in \Omega$ is an
+event.
 
 *Definition. *
 
 A **random variable** $X$ is a function
-$X:\Omega \rightarrow {\mathbb{R}}$ that gives the probability of an
-event $\omega \in \Omega$.
+$X:\Omega \rightarrow {\mathbb{R}}$ that takes the set of possible
+outcomes in a sample space, and maps it to a [measurable
+space](https://en.wikipedia.org/wiki/Measurable_space), typically (as in
+our case) a subset of $\mathbb{R}$.
 
 *Definition. *
 

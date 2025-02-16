@@ -29,11 +29,13 @@ render them.
 First, some brief exposition on random variables. Quixotically, a random
 variable is actually a function.
 
-Standard notation, $Omega$ is sample space, $omega$ is an event.
+Standard notation: $Omega$ is a sample space, $omega in Omega$ is an event.
 
 #definition[
-  A *random variable* $X$ is a function $X : Omega -> RR$ that gives the
-  probability of an event $omega in Omega$.
+  A *random variable* $X$ is a function $X : Omega -> RR$ that takes the set of
+  possible outcomes in a sample space, and maps it to a
+  #link("https://en.wikipedia.org/wiki/Measurable_space")[measurable space],
+  typically (as in our case) a subset of $RR$.
 ]
 
 #definition[
